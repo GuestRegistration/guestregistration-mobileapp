@@ -1,0 +1,146 @@
+{
+  "project_info": {
+    "project_number": "840040500916",
+    "firebase_url": "https://guestregistration-4140a.firebaseio.com",
+    "project_id": "guestregistration-4140a",
+    "storage_bucket": "guestregistration-4140a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840040500916:android:d9f1c13a0918c2dcb091e1",
+        "android_client_info": {
+          "package_name": "com.example.guest_registration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840040500916-52cqmiv3l3ic7gk16urq3n48497g8jjt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guest_registration",
+            "certificate_hash": "1784f4647f17f5600328bbdd94e989400782c1a1"
+          }
+        },
+        {
+          "client_id": "840040500916-5v5p49fj9lu7keucn8mdfe67ptov1db8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsF-d7uHWI3SztBBIrufDb5E2gmsJjARM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840040500916-5v5p49fj9lu7keucn8mdfe67ptov1db8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "840040500916-6m51g0h062di7ugsqokb7ojmgj3fruj5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.guestregistration",
+                "app_store_id": "962194608"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840040500916:android:01ff54c8ddfa12e4b091e1",
+        "android_client_info": {
+          "package_name": "com.example.guestregistration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840040500916-ldo49lmu026utq26snf2r8fdbnor47nd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guestregistration",
+            "certificate_hash": "1784f4647f17f5600328bbdd94e989400782c1a1"
+          }
+        },
+        {
+          "client_id": "840040500916-5v5p49fj9lu7keucn8mdfe67ptov1db8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsF-d7uHWI3SztBBIrufDb5E2gmsJjARM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840040500916-5v5p49fj9lu7keucn8mdfe67ptov1db8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "840040500916-6m51g0h062di7ugsqokb7ojmgj3fruj5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.guestregistration",
+                "app_store_id": "962194608"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840040500916:android:e8ca4f3eba50cb4cb091e1",
+        "android_client_info": {
+          "package_name": "com.example.passwordless"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840040500916-g7eu2q7nnbg7q09uf46g1j4i97sjb7ak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.passwordless",
+            "certificate_hash": "1784f4647f17f5600328bbdd94e989400782c1a1"
+          }
+        },
+        {
+          "client_id": "840040500916-5v5p49fj9lu7keucn8mdfe67ptov1db8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsF-d7uHWI3SztBBIrufDb5E2gmsJjARM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840040500916-5v5p49fj9lu7keucn8mdfe67ptov1db8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "840040500916-6m51g0h062di7ugsqokb7ojmgj3fruj5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.guestregistration",
+                "app_store_id": "962194608"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

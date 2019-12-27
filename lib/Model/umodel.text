@@ -1,0 +1,83 @@
+import 'package:firebase_database/firebase_database.dart';
+
+class User {
+  String key;
+  String name;
+  String phone;
+  String email;
+  //final Host host;
+  //List<Host> host;
+  User(
+    //this.key,
+    this.name, this.phone, this.email,
+  //this.host
+  );
+
+   /*factory User.fromJson(Map<String, dynamic> json) {
+    // var list = json['host'] as List;
+     // print(list.runtimeType);
+    //  List<Host> hostList = list.map((i) => Host.fromJson(i)).toList();
+    return User(
+      name: json['name'],
+      email: json['email'],
+      phone: json['phone'],
+      //host:  hostList,
+      //host: Host.fromJson(json['propertiesname']);
+      //host: Host.fromJson(json['propertiesname']),);
+      //host: Host.fromJson(json['propertiesname']),
+     /// host:  parseHost(json)
+  
+      );
+
+  }*/
+ /*static List<Host> parseHost(hostJson) {
+    var list = hostJson['host'] as List;
+    List<Host> hostList =
+        list.map((data) => Host.fromJson(data)).toList();
+    return hostList;
+  } */
+  User.fromSnapshot(DataSnapshot snapshot)
+      : key = snapshot.key,
+        name = snapshot.value["name"],
+        email = snapshot.value["email"],
+        phone = snapshot.value["phone"];
+        //host = snapshot.value["host"];
+       // host=snapshot.value["hostList"];
+       // propertiesname = snapshot.value["propertiesname"],
+        //role = snapshot.value["role"]; 
+  
+
+  toJson() {
+    return {
+     "name": name,
+      "email": email,
+      "phone": phone,
+     // "host": host
+    };
+  }
+   
+}
+ 
+
+class Host {
+  String propertiesname, role;
+  Host(this.propertiesname, this.role);
+ /* factory Host.fromJson(Map<String, dynamic> json) {
+    return new Host(
+      propertiesname: json['propertiesname'],
+       role: json['role'],       
+       );
+  }*/
+   Host.fromSnapshot(DataSnapshot snapshot)
+      : 
+        propertiesname = snapshot.value["propertiesname"],
+        role = snapshot.value["role"];    
+
+  toJson() {
+    return {
+     "propertiesname": propertiesname,
+      "role": role   
+    };
+  }
+  
+}

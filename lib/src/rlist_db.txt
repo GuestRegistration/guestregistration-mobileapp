@@ -1,0 +1,509 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+import 'package:passwordless/src/Reservation.dart';
+
+class Reservation_List_db_Screen extends StatefulWidget {
+  String email, property_name,property_id;
+
+  // List list;
+  Reservation_List_db_Screen({this.email,this.property_name,this.property_id});
+  @override
+  _Reservation_List_db_ScreenState createState() =>
+      new _Reservation_List_db_ScreenState();
+}
+
+class _Reservation_List_db_ScreenState extends State<Reservation_List_db_Screen> {
+  List host = List();
+    Future<QuerySnapshot> _listFuture;
+  Future<QuerySnapshot> future;
+ 
+ 
+    /*Future<QuerySnapshot> getreservation() async {
+       print("inside getreservation");
+    
+
+  var property_id = int.parse("${widget.property_id}");
+   print("propertyid"+property_id.toString());
+     Future<QuerySnapshot> reservation =  Firestore.instance
+        .collection("Reservation")
+        .where("property_id", isEqualTo: property_id)
+        .getDocuments()
+        .then((string) {
+          int i = string.documents.length;
+      print('Firestore response length : , ${string.documents.length}');
+      string.documents.forEach(
+        (doc) => Firestore.instance
+            .collection("Reservation")
+            .document("${doc.documentID.toString()}"),    
+      );
+  print("${string.documents[0].data}");
+     });
+    return reservation;
+  }*/
+
+  //Future<QuerySnapshot> getreservation() async {
+ Future<QuerySnapshot> getreservation() async {
+   var property_id = int.parse("${widget.property_id}");
+      Future<QuerySnapshot> reservation =  Firestore.instance
+        .collection("Reservation")
+        .where("property_id", isEqualTo: property_id)
+        .getDocuments();
+
+return reservation;
+ 
+  }
+
+  var email;
+  void initState()  {
+    super.initState();
+   future= getreservation(); 
+    //getproperty();
+    email = "${widget.email}";
+    print("${widget.email}");
+       // print("propertyiddddddddddd"+"${widget.property_id}");
+      _listFuture = getreservation();
+ 
+  }
+  void refreshList() {
+    // reload
+    setState(() {
+       _listFuture = getreservation();
+    
+    });
+  }
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    /*return RefreshIndicator(
+          child: Scaffold(*/
+          return Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
+            padding: const EdgeInsets.all(0.0),
+          /*  child: FutureBuilder(
+                  future: _listFuture,
+              //builder: (context, AsyncSnapshot<QuerySnapshot>snapshot) {
+                   builder: (context,snapshot) {
+                 switch (snapshot.connectionState) {
+             case ConnectionState.waiting: return new Text('Loading....');
+             default:
+                 print("snapshotdata"+snapshot.data.documents[0].data.toString());
+                print("snapshotdata1"+snapshot.data.documents[1].data.toString());
+             final int eventCount = snapshot.data.documents.length;
+                if (snapshot.hasError) print(snapshot.error);
+                if (snapshot.hasData) {
+                  if (snapshot.data != null) {                 
+                      
+                    //divya
+                      return new ListView.builder(
+                    itemCount: eventCount ,
+                  itemBuilder: (context, index) {
+                    final DocumentSnapshot document = snapshot.data.documents[index];
+                  return  new ItemList(
+                    list: document,
+                   );
+                  }
+                );
+
+                //divya
+               
+                return snapshot.hasData
+                        ? new ItemList(
+                             //list: snapshot.data.documents[0].data.toString(),
+                           list: snapshot.data.documents[1],
+                           //        list: snapshot.data.documents,
+                              )
+                        : new Center(
+                          
+                            child: new CircularProgressIndicator(),
+                          );//end multi cmd
+                  }
+                } else {
+                  return new CircularProgressIndicator();
+                }
+                return null;
+                }
+              },
+              
+            )
+            ),*/
+         /*   child: StreamBuilder<QuerySnapshot>(
+      stream: getreservation(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error ${snapshot.error}');
+        }
+        if (snapshot.hasData) {
+          print("Documents ${snapshot.data.documents.length}");
+                    print("Documents ${snapshot.data.documents}");
+          return buildList(context, snapshot.data.documents);
+        }
+        return CircularProgressIndicator();
+      },
+    ),*/
+   child: new FutureBuilder(
+      future: _listFuture,
+      builder: (BuildContext context,snapshot) {
+        if (!snapshot.hasData) return new Text('Loading...');
+          print(snapshot.data.documents.toString());
+        return new ListView(
+          children: snapshot.data.documents.map<Widget>((document) {
+        return new Container(
+          child: Row(
+            children: <Widget>[
+                new Flexible(
+                              child: Column(
+                                children: <Widget>[
+                                    new ListTile(
+                        title: new Text("Name: ${document['Name']}"),
+                                   subtitle:
+                          new Text("CheckIn: ${document['CheckIn_date']}"),
+                      trailing:
+                          new Text("Checkout: ${document['Checkout_date']}"),
+
+                ),
+                 Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'Share link',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xff6839ed),
+                                  onPressed: () {
+                                    
+                                  },
+                                ),
+                              ),
+                            ),
+                                ],
+                              ) 
+              ),
+             
+           /*Row(
+             children: <Widget>[
+                     Flexible(
+                          child: Card(
+                              child: Row(
+                                  //crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'View info',
+                                    style: TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xffEDE7FF),
+                                  onPressed: () {
+                                    
+                                    
+                                    // });
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'Share link',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xff6839ed),
+                                  onPressed: () {
+                                  /*  Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return Property_List_db_Screen(
+                                              //    email:email
+                                              );
+                                        },
+                                      ),
+                                    );*/
+                                    // });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ])))
+             ],
+           )  */     
+           
+            ],
+          )
+               
+              
+        );
+        
+       /* return new Container(
+          width: 100.0,
+          height: 100.0,
+          child:GestureDetector(
+             
+            child: SingleChildScrollView(
+              child: new Card(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                   
+             new Container(  
+                child:                    Expanded(
+                        child:ListTile(
+                        title: new Text("Name: ${document['Name']}"),
+            subtitle:
+                          new Text("CheckIn: ${document['CheckIn_date']}"),
+                      trailing:
+                          new Text("Checkout: ${document['Checkout_date']}"),
+                        ),),),
+                  Row(
+                    children: <Widget>[
+                      
+                      Flexible(
+                          child: Card(
+                              child: Row(
+                                  //crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'View info',
+                                    style: TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xffEDE7FF),
+                                  onPressed: () {
+                          
+                                    // });
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'Share link',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xff6839ed),
+                                  onPressed: () {
+                                  
+                                  },
+                                ),
+                              ),
+                            ),
+                          ])))
+                    ],
+                  )
+                ],
+              )),
+            ),
+            // ),
+           ), );*/
+          
+      }).toList()
+        );
+      },
+    ),
+        ),
+      );  
+ 
+  }
+}
+
+/*return  new ItemList(
+                    list: document,
+                   );*/
+ 
+class ItemList extends StatefulWidget {
+  
+
+  //EventSummary(this.event);
+  final DocumentSnapshot list;
+  String email;
+  ItemList({this.list, this.email});
+
+  @override
+  _ItemListState createState() => _ItemListState();
+}
+
+class _ItemListState extends State<ItemList> {
+ 
+  void initState() {
+    super.initState();
+  print("LISttttttttttt" + "${widget.list.data}".toString());
+    print("LIStttttttttttof name" + "${widget.list['Name']}".toString());
+  }
+ 
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(
+      shrinkWrap: true,
+      //itemCount: widget.list == null ? 0 : widget.list.length,
+            itemCount:2,
+            itemBuilder: (context, i) {
+        return new Container(
+          padding: const EdgeInsets.all(10.0),
+          child: new GestureDetector(
+            //child:   Flexible(
+            child: SingleChildScrollView(
+              child: new Card(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new ListTile(                 
+                    title: new Text(
+                        "Name : ${widget.list['Name']}".toString()),
+                   subtitle:
+                        new Text("CheckIn: ${widget.list['CheckIn_date']}".toString()),
+                    trailing:
+                        new Text("Checkout: ${widget.list['Checkout_date']}".toString()),
+                        ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                          child: Card(
+                              child: Row(
+                                  //crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'View info',
+                                    style: TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xffEDE7FF),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return Reservation(
+                                            propertyname:
+                                                "${widget.list['propertiesname']}"
+                                                    .toString(),
+                                            email: "${widget.email}",
+                                          );
+                                        },
+                                      ),
+                                    );
+                                    // });
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'Share link',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xff6839ed),
+                                  onPressed: () {
+                                  /*  Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return Property_List_db_Screen(
+                                              //    email:email
+                                              );
+                                        },
+                                      ),
+                                    );*/
+                                    // });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ])))
+                    ],
+                  )
+                ],
+              )),
+            ),
+            // ),
+          ),
+        );
+      },
+    );
+  }
+}
