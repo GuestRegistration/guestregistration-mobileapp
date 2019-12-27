@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Img;
+import 'package:passwordless/src/Termsandcon.dart';
 import 'package:passwordless/src/property_list.dart';
 import 'package:passwordless/src/property_list_db.dart';
 import 'dart:math' as Math;
@@ -706,12 +707,26 @@ void navigate(){
                                 print(_visible);
                                 //print(ownerpresent);
                                 formKey.currentState.save();
-                                 addProperty();
+                                /* addProperty();
                                   scaffoldkey.currentState.showSnackBar(SnackBar(
                                 content: Text("Start Adding Property"),                             
                                 
-                              ));
-                  
+                              ));*/
+                                Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (contex)=> Termsandcon(
+                          email: "${widget.email}",
+                           propertiesname: property_name.text,
+                          city: city.text,
+                          dropdownValue: dropdownValue,
+                          img1 : img1,
+                      property_email: property_email.text,
+                      phone: property_phone.text,
+                      staff: property_staff.text,
+                       owner: "${widget.email}",
+                       address_line1:address_line1.text,
+                               state: state.text,
+                         
+                      )));
                                            
                               } else {
                                 // validation error
