@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:passwordless/src/Reservation.dart';
+import 'package:passwordless/src/view_guest_info.dart';
 //import 'package:advanced_share/advanced_share.dart';
 import 'package:share/share.dart';
 
@@ -57,21 +58,6 @@ class _Reservation_List_db_ScreenState
   }
 
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  void handleResponse(response, {String appName}) {
-    if (response == 0) {
-      print("failed.");
-    } else if (response == 1) {
-      print("success");
-    } else if (response == 2) {
-      print("application isn't installed");
-      if (appName != null) {
-        scaffoldKey.currentState.showSnackBar(new SnackBar(
-          content: new Text("${appName} isn't installed."),
-          duration: new Duration(seconds: 4),
-        ));
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,87 +83,156 @@ class _Reservation_List_db_ScreenState
                 ),
               );
             }
-            //print(snapshot.data.documents[0]['documentID'].toString());
-            //  print(snapshot.data.documentChanges.length);
-            /*for(i=0;i<snapshot.data.documentChanges.length;i++){
-            print("i"+i.toString());
-          }*/
-            /* if(snapshot.data == null&&!snapshot.hasData) {
-           return new Center(
-             child:  Text("No Reservation Available", style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),),
-           );      
-         
-         }*/
-
-            return new ListView(
+         return new ListView(
                 children: snapshot.data.documents.map<Widget>((document) {
-              /*  for(int i=0;i<snapshot.data.documents.length;i++){
-                subtitle = new Text("docid ${snapshot.data.documents[i].documentID}");
-                print(subtitle);
-                print(snapshot.data.documentChanges.length);
-                //print(snapshot.data.documentChanges.getId());
-                  //return subtitle;
-                          }*/
+                  Text("hai",style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 55.0),);
               return new Container(
-                  child: Row(
-                children: <Widget>[
-                  new Flexible(
-                      child: Column(
-                    children: <Widget>[
-                      new ListTile(
-                        title: new Text("Name: ${document['Name']}"),
-                        //subtitle: new Text("CheckIn: ${document['CheckIn_date']}"),
-                        trailing:
-                            new Text("Checkout: ${document['Checkout_date']}"),
-                        subtitle: new Text("${document.documentID}"),
-                        //subtitle: new Text("${snapshot.data.documents[0]['documentID']}"),
-                        //// subtitle: subtitle,
-                      ),
-                      Align(
-                        alignment: Alignment(0, -.500),
-                        child: new SizedBox(
-                          height: 60.0,
-                          child: new RaisedButton(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(12.0),
-                            ),
-                            child: const Text(
-                              'Share link',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0),
-                            ),
-                            color: Color(0xff6839ed),
-                            onPressed: () {
-                              var documentid = "${document.documentID}";
-                              var url =
-                                  'https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/index.html?Reservation=$documentid';
-                              print(documentid);
-                              Share.share(url, subject: 'Your Guest app Signin');
-                             /* void generic() {
-                                print("inside share function");
-                                var documentid;
-                                documentid = "${document.documentID}";
-                                print(documentid);
-                                var url =
-                                    'https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/index.html?documentid=$documentid';
-                                //  var url = "https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/index.html";
-                             
-                                Share.share(url, subject: 'your url is');
-                                generic();
-                              }*/
-                            },
+                height: 200.0,
+                  child: Card(
+                semanticContainer: true,
+                clipBehavior: Clip.none,
+                elevation: 10,
+                margin: EdgeInsets.all(15),
+                child: Row(
+                  children: <Widget>[
+                    new Flexible(
+                        child: Column(
+                      children: <Widget>[
+                        new ListTile(
+                          
+                          title: new Text("${document['Name']}",  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0),),
+                          subtitle: new Row(
+                            children: <Widget>[
+                                SizedBox(width: 10.0,),
+                              Icon(Icons.store_mall_directory,
+                          color: Colors.black45,
+                              ),
+                          //     Icon(Icons.inbox),
+                            SizedBox(width: 10.0,),
+                              Text(
+                                "${document['CheckIn_date']}",
+                                style: TextStyle(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12.0),
+                              ),
+                              //Icon(Icons.domain),
+
+                              SizedBox(width: 10.0,),
+                               Icon(Icons.local_convenience_store, color: Colors.black45,),
+                                  SizedBox(width: 10.0,),
+                              Text("${document['Checkout_date']}",  style: TextStyle(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12.0),),
+                                      SizedBox(width: 1.0,),
+                            ],
                           ),
+
+                          //trailing:new Text("${document['Checkout_date']}"),
+                          // subtitle: new Text("${document.documentID}"),
                         ),
-                      ),
-                    ],
-                  )),
-                ],
-              ));
+                        // Card(
+                        //  color: Colors.black,
+
+                        // Wrap children in a Padding widget in order to give padding.
+                        /*child: Padding(
+                             padding: const EdgeInsets.only(
+                            top: 8.0,
+                            bottom: 8.0,
+                            left: 64.0,
+                          ),*/
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'View info',
+                                    style: TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xffEDE7FF),
+                                  onPressed: () {
+                                     Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return View_guest_info(
+                                            resevation_id:"${document['resevation_id']}",
+                                                     
+                                             
+                                          );
+                                        },
+                                      ),
+                                    );
+                                    // });
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20.0,
+                            ),
+                            Align(
+                              alignment: Alignment(0, -.500),
+                              child: new SizedBox(
+                                height: 60.0,
+                                child: new RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: const Text(
+                                    'Share link',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                  color: Color(0xff6839ed),
+                                  onPressed: () {
+                                    var documentid = "${document.documentID}";
+                                    var url =
+                                        'https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/index.html?Reservation=$documentid';
+                                    print(documentid);
+                                    Share.share(url,
+                                        subject: 'Your Guest app Signin');
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 25.0,
+                            )
+                          ],
+                        ),
+                        //  )
+                        // ),
+                      ],
+                    )),
+                       SizedBox(
+                              height: 25.0,
+                            ),
+                  ],
+                ),
+             
+              )
+              );
             }).toList());
           },
         ),
@@ -254,11 +309,10 @@ class _ItemListState extends State<ItemList> {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) {
-                                          return Reservation(
-                                            propertyname:
-                                                "${widget.list['propertiesname']}"
-                                                    .toString(),
-                                            email: "${widget.email}",
+                                          return View_guest_info(
+                                            resevation_id:"${widget.list['propertiesname']}",
+                                                     
+                                             
                                           );
                                         },
                                       ),

@@ -28,12 +28,8 @@ class _Property_List_db_ScreenState extends State<Property_List_db_Screen> {
                       ));
   }
    Future<QuerySnapshot> getproperty() async {
-    // await Future.delayed(Duration(seconds: 5));
-// setState(() {       
-
-    var email = "${widget.email}";
-   // List<List> host = List();
-    print("emailllllll" + email);
+     var email = "${widget.email}";
+     print("emailllllll" + email);
      Future<QuerySnapshot> user =  Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -52,12 +48,7 @@ return user;
     email = "${widget.email}";
     print("${widget.email}");
       _listFuture = getproperty();
-//Navigator.pop(context);
-//refresh();
- /*setState(() {
-      //_listFuture = updateAndGetList();
-       refresh();
-    });*/
+ 
   }
   void refreshList() {
     // reload
@@ -113,7 +104,8 @@ return user;
                 }
               },
               
-            )),
+            )
+            ),
       ); //onRefresh: refreshList,
     //);
   }
@@ -233,152 +225,165 @@ class _ItemListState extends State<ItemList> {
           child: new GestureDetector(
             //child:   Flexible(
             child: SingleChildScrollView(
-              child: new Card(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new ListTile(
-                    title: new Text(
-                        "Properties name : ${widget.list[i]['propertiesname']}"
-                            .toString()),
-                    subtitle:
-                        new Text("City : ${widget.list[i]['city']}".toString()),
-                    trailing:
-                        new Text("role : ${widget.list[i]['role']}".toString()),
-                        //  new Text("role : ${widget.list[i]['Propertyid']}".toString()),
-                    /* new IconButton(icon: new Icon(Icons.menu),
+              child: Container(
+                //  height: 300.0,
+                  child: Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                //elevation: 10,
+                margin: EdgeInsets.all(15),
+                                             
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new ListTile(
+                      title: Row(children: <Widget>[
+                        new Text(
+                          "Name :${widget.list[i]['propertiesname']}"
+                              .toString(),style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold,color: Colors.black),),
+     //new Text("Role: ${widget.list[i]['role']}".toString()),
+                      ],) ,
+                       subtitle:  new Text("City :${widget.list[i]['city']}".toString(),style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold,color: Colors.black),),
+                 
+                          
+                          //  new Text("role : ${widget.list[i]['Propertyid']}".toString()),
+                      /* new IconButton(icon: new Icon(Icons.menu),
             onPressed: (){},
           ),     */
-                    leading: new IconButton(
-                      icon: new Icon(Icons.delete),
-                      onPressed: () {
-                        //  setState(() {
+                      leading: new IconButton(
+                        icon: new Icon(Icons.delete),
+                        color: Colors.black,
+                        onPressed: () {
+                          //  setState(() {
   delete_user_property("${widget.list[i]['propertiesname']}","${widget.list[i]['city']}","${widget.list[i]['role']}","${widget.list[i]['Propertyid']}");
-                       delete_property("${widget.list[i]['Propertyid']}",i);
-                        // });
-                      },
+                         delete_property("${widget.list[i]['Propertyid']}",i);
+                          // });
+                        },
+                      ),
                     ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                          child: Card(
-                              child: Row(
-                                  //crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                            Align(
-                              alignment: Alignment(0, -.500),
-                              child: new SizedBox(
-                                height: 60.0,
-                                child: new RaisedButton(
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(12.0),
+                    Row(
+                      children: <Widget>[
+                        Flexible(
+                            child: Card(
+                                child: Row(
+                                    //crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                              Align(
+                                alignment: Alignment(0, -.500),
+                                child: new SizedBox(
+                                  height: 60.0,
+                                  child: new RaisedButton(
+                                    shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(12.0),
+                                    ),
+                                    child: const Text(
+                                      'Add Reservation',
+                                      style: TextStyle(
+                                          color: Colors.deepPurple,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12.0),
+                                    ),
+                                    color: Color(0xffEDE7FF),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Reservation(
+                                              
+                                              propertyname:
+                                                  "${widget.list[i]['propertiesname']}",
+                                                      property_id:"${widget.list[i]['Propertyid']}",
+                                              email: "${widget.email}",
+                                              
+
+                                            );
+                                          },
+                                        ),
+                                      );
+                                      // });
+                                    },
                                   ),
-                                  child: const Text(
-                                    'Add Reservation',
-                                    style: TextStyle(
-                                        color: Colors.deepPurple,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),
-                                  ),
-                                  color: Color(0xffEDE7FF),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return Reservation(
-                                            propertyname:
-                                                "${widget.list[i]['propertiesname']}"
-                                                    .toString(),
-                                                    property_id:"${widget.list[i]['Propertyid']}",
-                                            email: "${widget.email}",
-                                          );
-                                        },
-                                      ),
-                                    );
-                                    // });
-                                  },
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Align(
-                              alignment: Alignment(0, -.500),
-                              child: new SizedBox(
-                                height: 60.0,
-                                child: new RaisedButton(
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(12.0),
+                              //SizedBox(width: 10.0),
+                           /*  Align(
+                                alignment: Alignment(0, -.500),
+                                child: new SizedBox(
+                                  height: 60.0,
+                                  child: new RaisedButton(
+                                    shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(12.0),
+                                    ),
+                                    child: const Text(
+                                      'View Guests',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15.0),
+                                    ),
+                                    color: Color(0xff6839ed),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Property_List_db_Screen(
+                                                //    email:email
+                                                );
+                                          },
+                                        ),
+                                      );
+                                      // });
+                                    },
                                   ),
-                                  child: const Text(
-                                    'View Guests',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),
+                                ),
+                              ),*/
+                              SizedBox(width: 10.0,),
+                                 Align(
+                               // alignment: Alignment(0, -.500),
+                                child: new SizedBox(
+                                  height: 60.0,
+                                  child: new RaisedButton(
+                                    shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(12.0),
+                                    ),
+                                    child: const Text(
+                                      'View Reservation',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12.0),
+                                    ),
+                                    color: Color(0xff6839ed),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Reservation_List_db_Screen(
+                                                email:"${widget.email}",
+                                property_name : "${widget.list[i]['propertiesname']}",
+                                property_id: "${widget.list[i]['Propertyid']}",
+                                                );
+                                          },
+                                        ),
+                                      );
+                                      // });
+                                    },
                                   ),
-                                  color: Color(0xff6839ed),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return Property_List_db_Screen(
-                                              //    email:email
-                                              );
-                                        },
-                                      ),
-                                    );
-                                    // });
-                                  },
                                 ),
                               ),
-                            ),
-                           
-                          ])
-                          
-                          ))
-                    ],
-                  ),
-                       Align(
-                             // alignment: Alignment(0, -.500),
-                              child: new SizedBox(
-                                height: 60.0,
-                                child: new RaisedButton(
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(12.0),
-                                  ),
-                                  child: const Text(
-                                    'View Reservation',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),
-                                  ),
-                                  color: Color(0xff6839ed),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return Reservation_List_db_Screen(
-                                              email:"${widget.email}",
-                              property_name : "${widget.list[i]['propertiesname']}",
-                              property_id: "${widget.list[i]['Propertyid']}",
-                                              );
-                                        },
-                                      ),
-                                    );
-                                    // });
-                                  },
-                                ),
-                              ),
-                            ),
-               ],
-              )),
+                             
+                            ])
+                            
+                            ))
+                      ],
+                    ),
+                      
+                 ],
+                )),
+              ),
             ),
             // ),
           ),

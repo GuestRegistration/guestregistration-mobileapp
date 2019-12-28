@@ -315,7 +315,7 @@ void navigate(){
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldkey,
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         body: Builder(
           builder: (BuildContext context) {
             return Container(
@@ -327,6 +327,11 @@ void navigate(){
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                       Text(
+                            "Add your Property",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 25.0,fontWeight: FontWeight.bold),
+                          ),
                       SizedBox(
                         height: 20.0,
                       ),
@@ -336,11 +341,14 @@ void navigate(){
                         child: Container(
                           // color: Color(0xffD6C9F5),
                           child: Text(
-                            "Your Property Name",
+                            "Name",
                             style:
-                                TextStyle(color: Colors.black, fontSize: 15.0),
+                                TextStyle(color:Color(0xffD6C9F5), fontSize: 15.0),
                           ),
                         ),
+                      ),
+                       SizedBox(
+                        height: 10.0,
                       ),
                       Align(
                         alignment: Alignment(-.100, 0),
@@ -348,7 +356,8 @@ void navigate(){
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width - 100,
                           decoration: new BoxDecoration(
-                              color: Color(0xffD6C9F5),
+                         //     color: Color(0xffD6C9F5),
+                         color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
                             controller: property_name,
@@ -379,11 +388,14 @@ void navigate(){
                         child: Container(
                           // color: Color(0xffD6C9F5),
                           child: Text(
-                            "Your Property Email address",
+                            "Email address",
                             style:
-                                TextStyle(color: Colors.black, fontSize: 15.0),
+                                TextStyle(color: Color(0xffD6C9F5), fontSize: 15.0),
                           ),
                         ),
+                      ),
+                       SizedBox(
+                        height: 10.0,
                       ),
                       Align(
                         alignment: Alignment(-.100, 0),
@@ -391,7 +403,8 @@ void navigate(){
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width - 100,
                           decoration: new BoxDecoration(
-                              color: Color(0xffD6C9F5),
+                                 color: Colors.white,
+                              //color: Color(0xffD6C9F5),
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
                             controller: property_email,
@@ -412,7 +425,9 @@ void navigate(){
                           ),
                         ),
                       ),
-
+                       SizedBox(
+                        height: 20.0,
+                      ),
                       Center(
                         child: img1 == null
                             ? new Text("Please select image",style:  TextStyle(color: Colors.red, fontSize: 15.0),)
@@ -433,17 +448,17 @@ void navigate(){
                           IconButton(
                             icon: Icon(
                               Icons.image,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
-                            color: Colors.black38,
+                            color: Colors.white,
                             onPressed: getImageGallery,
                           ),
                           IconButton(
                             icon: Icon(
                               Icons.camera_alt,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
-                            color: Colors.black38,
+                            color: Colors.white,
                             onPressed: getImageCamera,
                           ),
                           Expanded(
@@ -459,11 +474,14 @@ void navigate(){
                         child: Container(
                           // color: Color(0xffD6C9F5),
                           child: Text(
-                            "Your Phone",
+                            "Phone",
                             style:
-                                TextStyle(color: Colors.black, fontSize: 15.0),
+                                TextStyle(color: Color(0xffD6C9F5), fontSize: 15.0),
                           ),
                         ),
+                      ),
+                       SizedBox(
+                        height: 10.0,
                       ),
                       Align(
                         alignment: Alignment(-.100, 0),
@@ -471,7 +489,8 @@ void navigate(){
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width - 100,
                           decoration: new BoxDecoration(
-                              color: Color(0xffD6C9F5),
+                              //color: Color(0xffD6C9F5),
+                                 color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
                             validator: validateMobile,
@@ -489,15 +508,21 @@ void navigate(){
                           ),
                         ),
                       ),
+                       SizedBox(
+                        height: 20.0,
+                      ),
                       Align(
                         alignment: Alignment(-.85, 0),
                                     child: Container(
                            child: Text(
                             "Staff Email",
                             style:
-                                TextStyle(color: Colors.black, fontSize: 15.0),
+                                TextStyle( color: Color(0xffD6C9F5), fontSize: 15.0),
                           ),
                         ),
+                      ),
+                       SizedBox(
+                        height: 10.0,
                       ),
                       Align(
                         alignment: Alignment(-.100, 0),
@@ -505,7 +530,8 @@ void navigate(){
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width - 100,
                           decoration: new BoxDecoration(
-                              color: Color(0xffD6C9F5),
+                        //     color: Color(0xffD6C9F5),
+                           color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
                             controller: property_staff,
@@ -526,46 +552,59 @@ void navigate(){
                         height: 20.0,
                       ),
                       SizedBox(
+
                         width: 186.0,
-                        child: DropdownButtonFormField<String>(
-                          value: dropdownValue,
-                          hint: Text('Please choose role'),
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(0.0),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              isDense: true),
-                          onChanged: (String newValue) {
-                            setState(() {
-                              dropdownValue = newValue;
-                            });
-                          },
-                          items: <String>['Owner', 'Staff'].map((role) {
-                            return DropdownMenuItem(
-                              child: new Text(role),
-                              value: role,
-                            );
-                          }).toList(),
-                          validator: (String value) {
-                            if (value?.isEmpty ?? true) {
-                              return 'Please enter a valid type of business';
-                            }
-                          },
+                        
+                        child: Container(
+                                                  child: DropdownButtonFormField<String>(
+                            value: dropdownValue,
+                            
+                            hint: Text('Please choose role', style:
+                                  TextStyle(color: Colors.white, fontSize: 15.0),),
+                            decoration: InputDecoration(
+                               
+                                contentPadding: const EdgeInsets.all(0.0),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
+                                isDense: true),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValue = newValue;
+                              });
+                            },
+                            items: <String>['Owner', 'Staff'].map((role) {
+                              return DropdownMenuItem(
+                                child: new Text(role,style:
+                                  TextStyle(color: Colors.white, fontSize: 15.0),),
+                                value: role,
+                              );
+                            }).toList(),
+                            validator: (String value) {
+                              if (value?.isEmpty ?? true) {
+                                return 'Please enter a valid type of business';
+                              }
+                            },
+                          ),
                         ),
                       ),
- 
+   SizedBox(
+                        height: 20.0,
+                      ),
                       Align(
                         alignment: Alignment(-.85, 0),
                         //     widthFactor: left
                         child: Container(
                           // color: Color(0xffD6C9F5),
                           child: Text(
-                            "Your Address ",
+                            "Address ",
                             style:
-                                TextStyle(color: Colors.black, fontSize: 15.0),
+                                TextStyle(color: Color(0xffD6C9F5), fontSize: 15.0),
                           ),
                         ),
+                      ),
+                       SizedBox(
+                        height: 10.0,
                       ),
                       Align(
                         alignment: Alignment(-.100, 0),
@@ -573,7 +612,8 @@ void navigate(){
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width - 100,
                           decoration: new BoxDecoration(
-                              color: Color(0xffD6C9F5),
+                             // color: Color(0xffD6C9F5),
+                             color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
                             //     initialValue: "${widget.addressline1}",
@@ -598,17 +638,23 @@ void navigate(){
                           ),
                         ),
                       ),
+                       SizedBox(
+                        height: 20.0,
+                      ),
                       Align(
                         alignment: Alignment(-.85, 0),
                         //     widthFactor: left
                         child: Container(
                           // color: Color(0xffD6C9F5),
                           child: Text(
-                            "Your City",
+                            "City",
                             style:
-                                TextStyle(color: Colors.black, fontSize: 15.0),
+                                TextStyle(color: Color(0xffD6C9F5), fontSize: 15.0),
                           ),
                         ),
+                      ),
+                       SizedBox(
+                        height: 10.0,
                       ),
                       Align(
                         alignment: Alignment(-.100, 0),
@@ -616,7 +662,8 @@ void navigate(){
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width - 100,
                           decoration: new BoxDecoration(
-                              color: Color(0xffD6C9F5),
+                              //color: Color(0xffD6C9F5),
+                              color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
                             controller: city,
@@ -637,17 +684,23 @@ void navigate(){
                           ),
                         ),
                       ),
+                       SizedBox(
+                        height: 20.0,
+                      ),
                       Align(
                         alignment: Alignment(-.85, 0),
                         //     widthFactor: left
                         child: Container(
                           // color: Color(0xffD6C9F5),
                           child: Text(
-                            "Your State",
+                            "State",
                             style:
-                                TextStyle(color: Colors.black, fontSize: 15.0),
+                                TextStyle(color: Color(0xffD6C9F5), fontSize: 15.0),
                           ),
                         ),
+                      ),
+                       SizedBox(
+                        height: 10.0,
                       ),
                       Align(
                         alignment: Alignment(-.100, 0),
@@ -655,7 +708,7 @@ void navigate(){
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width - 100,
                           decoration: new BoxDecoration(
-                              color: Color(0xffD6C9F5),
+                              color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
                             // initialValue: "${widget.state}",
@@ -676,6 +729,9 @@ void navigate(){
                           ),
                         ),
                       ),
+                       SizedBox(
+                        height: 10.0,
+                      ),
                       Visibility(
                         child: Text(
                           _error,
@@ -691,7 +747,8 @@ void navigate(){
                         height: 60.0,
                         child: new RaisedButton(
                           child: const Text(
-                            'Complete setup',
+//                            'Complete setup',
+                          'Continue',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
