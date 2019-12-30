@@ -110,7 +110,7 @@ void initState() {
                       'Property_logo': url,
                       'email': "${widget.property_email}",
                       'phone': "${widget.phone}",
-                       't&C': terms_con.text,
+                       'terms': terms_con.text,
                       'Team': {
                         'staff': "${widget.staff}",
                         "owner": "${widget.email}"
@@ -159,7 +159,7 @@ void initState() {
                       'Property_logo': url,
                       'email': "${widget.property_email}",
                       'phone': "${widget.phone}",
-                      't&C': terms_con.text,
+                      'terms': terms_con.text,
                       'Team' : {
                         'staff': "${widget.staff}",
                         "owner": "${widget.email}"
@@ -273,10 +273,23 @@ void navigate(){
                 backgroundColor: Color(0xff151232),
                 // progressColor: Colors.greenAccent,
               ),
+              SizedBox(
+                  height: 10,
+                ),
                 Text(
-                  'Terms & Conditions',
+                  //'Terms & Conditions',
+                    'Propperty Rules',
                   style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 29,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                  Text(
+                  //'Terms & Conditions',
+                    'Tell people what to expect',
+                
+                  style: TextStyle(
+                      fontSize: 12,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -298,7 +311,7 @@ void navigate(){
                   decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  hintText: 'Paste your terms and conditions here...'),
+                  hintText: 'Paste your property rules here'),
                   keyboardType: TextInputType.multiline,
                   maxLines: 10,
                 ),

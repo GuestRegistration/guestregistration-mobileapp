@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -71,9 +73,10 @@ class _ReservationState extends State<Reservation> {
         // selectedDate=formatted1 as DateTime;
       });
   }
- void update_user_reservation() async {
-       print("inside update_user_reservation");
+ void update_user_reservation(resevation_id) async {
+       print("inside update_user_reservation"+resevation_id.toString());
     var email = "${widget.email}";
+     
  print(email);
 
   var property_id = int.parse("${widget.property_id}");
@@ -94,9 +97,7 @@ class _ReservationState extends State<Reservation> {
                 {
                   'Primary_guest': primary_guest.text,
                   'property_id': property_id,
-              //      'CheckIn_date': _textControllerin.text,
-               //'Checkout_date':_textControllerout.text,
-                  //'Additional_guest':addtional_guest.text,
+                  'resevation_id':resevation_id,
                 }
               ]),
             }),
@@ -104,6 +105,9 @@ class _ReservationState extends State<Reservation> {
     });
   }
    void addReservation() {
+       Random random = new Random();
+    var resevation_id = random.nextInt(100000000) + 10;
+    print("resevation_id" + resevation_id.toString());
       print("inside addReservation");
         var property_id = int.parse("${widget.property_id}");
    print("propertyid"+property_id.toString());
@@ -121,12 +125,12 @@ class _ReservationState extends State<Reservation> {
             'iD_verification':"ID_verification",
             'payment' : "payment",
              'property_id': property_id,
+             'resevation_id':resevation_id,
           }, //merge: true
            
-            
            );
         },
-      );
+      ).whenComplete(() => update_user_reservation(resevation_id));
     } catch (e) {
       print(e.toString());
     }
@@ -195,7 +199,7 @@ class _ReservationState extends State<Reservation> {
                   child: Text(
                     'Name on booking',
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 13,
                         color: Color(0Xff5E577D),
                         fontWeight: FontWeight.bold),
                   ),
@@ -227,7 +231,7 @@ class _ReservationState extends State<Reservation> {
                   child: Text(
                     'Primary guests',
                     style: TextStyle(
-                        fontSize: 15,
+                      fontSize: 13,
                         color: Color(0Xff5E577D),
                         fontWeight: FontWeight.bold),
                   ),
@@ -291,7 +295,7 @@ class _ReservationState extends State<Reservation> {
                   child: Text(
                     'Number of guests',
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 13,
                         color: Color(0Xff5E577D),
                         fontWeight: FontWeight.bold),
                   ),
@@ -326,7 +330,7 @@ class _ReservationState extends State<Reservation> {
                   child: Text(
                     'Booking Channel',
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 13,
                        color: Color(0Xff5E577D),
                         fontWeight: FontWeight.bold),
                   ),
@@ -363,7 +367,7 @@ class _ReservationState extends State<Reservation> {
                       child: Text(
                         'Check-in date',
                         style: TextStyle(
-                            fontSize: 15,
+                          fontSize: 13,
                            color: Color(0Xff5E577D),
                             fontWeight: FontWeight.bold),
                       ),
@@ -376,7 +380,7 @@ class _ReservationState extends State<Reservation> {
                       child: Text(
                         'Check-out date',
                         style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                             color: Color(0Xff5E577D),
                             fontWeight: FontWeight.bold),
                       ),
@@ -403,7 +407,7 @@ class _ReservationState extends State<Reservation> {
                                 //fillColor: Colors.white.withOpacity(0.6),
                                    fillColor: Colors.white,
                                 filled: true,
-                                hintText: '11/16/19',
+                                hintText: 'MM/DD/YY',
                               ),
                               onTap: () {
                                 _selectDatecheckin(context);
@@ -427,7 +431,7 @@ class _ReservationState extends State<Reservation> {
                             //  fillColor: Colors.white.withOpacity(0.6),
                                fillColor: Colors.white,
                               filled: true,
-                              hintText: '11/16/19',
+                              hintText: 'MM/DD/YY',
                               //labelText: 'Number of guests',
                             ),
                             onTap: () {
@@ -456,7 +460,7 @@ class _ReservationState extends State<Reservation> {
                   color: Colors.deepPurpleAccent,
                   onPressed: () {
                      addReservation();
-                    update_user_reservation(); 
+                    //update_user_reservation(resevation_id); 
                        Navigator.of(context).push(
                       new MaterialPageRoute(
                           builder: (BuildContext context) => new Reservation_List_db_Screen(
