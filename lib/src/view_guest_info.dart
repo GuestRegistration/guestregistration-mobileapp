@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
-import 'package:passwordless/src/Reservation.dart';
-import 'package:passwordless/src/reservation_list_db.dart';
 
 class View_guest_info extends StatefulWidget {
   String resevation_id;
@@ -127,94 +124,122 @@ class _ItemListState extends State<ItemList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         new ListTile(
-                            title: Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 100.0,
-                                                                  child: Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    elevation: 10,
-                                    margin: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: <Widget>[
-                                        new Text("Name on Booking"),
-                                        new Text(
-                                          "${widget.list[i]['Name']}".toString(),
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
+                          title: Column(
+                            children: <Widget>[
+                              Container(
+                                height: 100.0,
+                                child: Card(
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  elevation: 10,
+                                  margin: EdgeInsets.all(15),
+                                  child: Row(
+                                    children: <Widget>[
+                                       Card(
+                                            semanticContainer: true,
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            elevation: 10,
+                                            margin: EdgeInsets.all(15),
+                                            child: new Text("Name on Booking"),
+                                          ),
+                                      
+                                      Column(children: <Widget>[
+
+                                         Container(
+                                          
+                                          width: 100.0,  
+                                          height: 70.0,  
+                                            child: Card(
+                                            semanticContainer: true,
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            elevation: 10,
+                                            margin: EdgeInsets.all(15),
+                                            child: new Text(
+                                              "${widget.list[i]['Name']}"
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
                                         ),
-                                      ],
-                                    ),
+                                    ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                               Container(
-                                  height: 100.0,
-                                                                  child: Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    elevation: 10,
-                                    margin: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: <Widget>[
-                                        new Text("Primary Guest"),
-                                        new Text(
-                                          "${widget.list[i]['Primary_guest']}".toString(),
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
+                              ),
+                              Container(
+                                height: 100.0,
+                                child: Card(
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  elevation: 10,
+                                  margin: EdgeInsets.all(15),
+                                  child: Row(
+                                    children: <Widget>[
+                                      new Text("Primary Guest"),
+                                      new Text(
+                                        "${widget.list[i]['Primary_guest']}"
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                      Container(
-                                  height: 100.0,
-                                                                  child: Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    elevation: 10,
-                                    margin: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: <Widget>[
-                                        new Text("CheckOut date"),
-                                        new Text(
-                                          "${widget.list[i]['Checkout_date']}".toString(),
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
+                              ),
+                              Container(
+                                height: 100.0,
+                                child: Card(
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  elevation: 10,
+                                  margin: EdgeInsets.all(15),
+                                  child: Row(
+                                    children: <Widget>[
+                                      new Text("CheckOut date"),
+                                      new Text(
+                                        "${widget.list[i]['Checkout_date']}"
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Container(
-                                  height: 100.0,
-                                   child: Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    elevation: 10,
-                                    margin: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: <Widget>[
-                                        new Text("CheckIn date"),
-                                        new Text(
-                                          "${widget.list[i]['CheckIn_date']}".toString(),
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
+                              ),
+                              Container(
+                                height: 100.0,
+                                child: Card(
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  elevation: 10,
+                                  margin: EdgeInsets.all(15),
+                                  child: Row(
+                                    children: <Widget>[
+                                      new Text("CheckIn date"),
+                                      new Text(
+                                        "${widget.list[i]['CheckIn_date']}"
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
 
                           /*  subtitle: new Column(
                               children: <Widget>[
@@ -227,7 +252,7 @@ class _ItemListState extends State<ItemList> {
                                 ),
                               ],
                             )*/
-                            ),
+                        ),
                       ],
                     )),
               ),

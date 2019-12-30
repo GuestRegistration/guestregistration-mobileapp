@@ -24,6 +24,11 @@ var formatter2 = new DateFormat('yyyy-MM-dd');
 var formatted2 = formatter2.format(selectedDate);
 
 class _ReservationState extends State<Reservation> {
+  String email;
+    String _error = "";
+  //GlobalKey<FormState> _key = new GlobalKey();
+  final formKey = GlobalKey<FormState>();
+  bool _validate = false;
   final TextEditingController _textControllerin = new TextEditingController();
   final TextEditingController _textControllerout = new TextEditingController();
   TextEditingController guest_name = new TextEditingController();
@@ -32,6 +37,8 @@ class _ReservationState extends State<Reservation> {
   TextEditingController booking_channel = new TextEditingController();
   TextEditingController number_of_guest = new TextEditingController();
 
+final scaffoldkey = GlobalKey<ScaffoldState>();
+  bool _visible = false;
 
   Future _selectDatecheckin(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -140,349 +147,424 @@ class _ReservationState extends State<Reservation> {
   Widget build(BuildContext context) {
     return new Scaffold(
       //backgroundColor: Color(0xff151232),
-   
+   key: scaffoldkey,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
+
             padding: EdgeInsets.only(left: 10, right: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                  new LinearPercentIndicator(
-               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                maskFilter: MaskFilter.blur(BlurStyle.solid, 1.0),
-                // MainAxisAlignment alignment = MainAxisAlignment.start,
-                //animateFromLastPercent: true,
-                //width: MediaQuery.of(context).size.width - 0,
-                //animation: true,
-                lineHeight: 25.0,
-                //animationDuration: 30000,
-                //addAutomaticKeepAlive: true,
-                //clipLinearGradient: false,
-                percent: 0.7,
-                //linearStrokeCap: LinearStrokeCap.values[2],
-                progressColor: Color(
-                  0xffF43669,
-                ),
-                backgroundColor: Color(0xff151232),
-                // progressColor: Colors.greenAccent,
-              ),
-              SizedBox(
-                  height: 32.0,
-                ),
-                Align(
-                  alignment: Alignment(-.88, 0),
-                  child: Text(
-                    "${widget.propertyname}",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Color(0XffA2A0AE),
-                        fontWeight: FontWeight.bold),
+            child:  new Form(
+                  autovalidate: _validate,
+                  key: formKey,
+                          child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                    new LinearPercentIndicator(
+                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  maskFilter: MaskFilter.blur(BlurStyle.solid, 1.0),
+                  // MainAxisAlignment alignment = MainAxisAlignment.start,
+                  //animateFromLastPercent: true,
+                  //width: MediaQuery.of(context).size.width - 0,
+                  //animation: true,
+                  lineHeight: 25.0,
+                  //animationDuration: 30000,
+                  //addAutomaticKeepAlive: true,
+                  //clipLinearGradient: false,
+                  percent: 0.7,
+                  //linearStrokeCap: LinearStrokeCap.values[2],
+                  progressColor: Color(
+                    0xffF43669,
                   ),
+                  backgroundColor: Color(0xff151232),
+                  // progressColor: Colors.greenAccent,
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                Align(
-                  alignment: Alignment(-.88, 0),
-                  child: Text(
-                    'Reservation',
-                    style: TextStyle(
-                        fontSize: 35,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    height: 32.0,
                   ),
-                ),
-                 Align(
-                  alignment: Alignment(-.88, 0),
-                  child: Text(
-                    'Name on booking',
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Color(0Xff5E577D),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Align(
-
-                   alignment: Alignment(-.100, 0),
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width - 100,
-                      decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                       controller: guest_name,
-                               decoration: InputDecoration(
-                             hintText: 'e.g. Joe blogg',
-                            contentPadding: EdgeInsets.all(20),
-                          )),
-                    ),
-           
-                ),
-                    
-                   Align(
-                  alignment: Alignment(-.88, 0),
-                  child: Text(
-                    'Primary guests',
-                    style: TextStyle(
-                      fontSize: 13,
-                        color: Color(0Xff5E577D),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                
-                Align(
-                 alignment: Alignment(-.100, 0),
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width - 100,
-                      decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                        controller: primary_guest,
-                               decoration: InputDecoration(
-                             hintText: 'e.g. John@gmail.com',
-                            contentPadding: EdgeInsets.all(20),
-                          )),
-                    ),
-                  
-                ), 
-                /*  Align(
-                  alignment: Alignment(-.88, 0),
-                  child: Text(
-                    'Additional guests',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Color(0Xff5E577D),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-
                   Align(
-                 alignment: Alignment(-.100, 0),
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width - 100,
-                      decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                          controller: addtional_guest,
-                               decoration: InputDecoration(
-                          hintText: 'e.g. Alex@gmail.com',
-
-                            contentPadding: EdgeInsets.all(20),
-                          )),
+                    alignment: Alignment(-.88, 0),
+                    child: Text(
+                      "${widget.propertyname}",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0XffA2A0AE),
+                          fontWeight: FontWeight.bold),
                     ),
-                  
-                ),*/
-          
-                Align(
-                  alignment: Alignment(-.88, 0),
-                  child: Text(
-                    'Number of guests',
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Color(0Xff5E577D),
-                        fontWeight: FontWeight.bold),
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                     Align(
-                 alignment: Alignment(-.100, 0),
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width - 100,
-                      decoration: new BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                          controller: number_of_guest,
-                               decoration: InputDecoration(
-                                              hintText: 'e.g. 2',
-
-                            contentPadding: EdgeInsets.all(20),
-                          )),
-                    ),
-                  
-                ),
-                
-                SizedBox(
-                  height: 15.0,
-                ),
-                Align(
-                  alignment: Alignment(-.88, 0),
-                  child: Text(
-                    'Booking Channel',
-                    style: TextStyle(
-                        fontSize: 13,
-                       color: Color(0Xff5E577D),
-                        fontWeight: FontWeight.bold),
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                      Align(
-                 alignment: Alignment(-.100, 0),
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width - 100,
-                      decoration: new BoxDecoration(
+                  Align(
+                    alignment: Alignment(-.88, 0),
+                    child: Text(
+                      'Reservation',
+                      style: TextStyle(
+                          fontSize: 35,
                           color: Colors.white,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                          controller: booking_channel,
-                               decoration: InputDecoration(
-                                               hintText: 'e.g. airbnb',
-                            contentPadding: EdgeInsets.all(20),
-                          )),
+                          fontWeight: FontWeight.bold),
                     ),
-                  
-                ),
-              
-                SizedBox(
-                  height: 15.0,
-                ),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Align(
-                      // alignment: Alignment(-.80, 0),
-                      child: Text(
-                        'Check-in date',
-                        style: TextStyle(
+                  ),
+                   Align(
+                    alignment: Alignment(-.88, 0),
+                    child: Text(
+                      'Name on booking',
+                      style: TextStyle(
                           fontSize: 13,
-                           color: Color(0Xff5E577D),
-                            fontWeight: FontWeight.bold),
+                          color: Color(0Xff5E577D),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Align(
+
+                     alignment: Alignment(-.100, 0),
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width - 100,
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: new BorderRadius.circular(12.0)),
+                        child: new TextFormField(
+                         controller: guest_name,
+                          validator: (value) {
+                              if (value.isEmpty) {
+                                 return "Please enter Name of the Guest";
+                              }
+                              return null;
+                            },
+                                 decoration: InputDecoration(
+                               hintText: 'e.g. Joe blogg',
+                              contentPadding: EdgeInsets.all(20),
+                            )),
                       ),
+           
+                  ),
+                      
+                     Align(
+                    alignment: Alignment(-.88, 0),
+                    child: Text(
+                      'Primary guests',
+                      style: TextStyle(
+                        fontSize: 13,
+                          color: Color(0Xff5E577D),
+                          fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
-                      width: 10,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  
+                  Align(
+                   alignment: Alignment(-.100, 0),
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width - 100,
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: new BorderRadius.circular(12.0)),
+                        child: new TextFormField(
+                             validator: validateEmail,
+                              onSaved: (String val) {
+                                email = val;
+                              },
+                          controller: primary_guest,
+                                 decoration: InputDecoration(
+                               hintText: 'e.g. John@gmail.com',
+                              contentPadding: EdgeInsets.all(20),
+                            )),
+                      ),
+                    
+                  ), 
+                  /*  Align(
+                    alignment: Alignment(-.88, 0),
+                    child: Text(
+                      'Additional guests',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0Xff5E577D),
+                          fontWeight: FontWeight.bold),
                     ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+
                     Align(
-                      // alignment: Alignment(.88, 0),
-                      child: Text(
-                        'Check-out date',
-                        style: TextStyle(
+                   alignment: Alignment(-.100, 0),
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width - 100,
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: new BorderRadius.circular(12.0)),
+                        child: new TextFormField(
+                            controller: addtional_guest,
+                                 decoration: InputDecoration(
+                            hintText: 'e.g. Alex@gmail.com',
+
+                              contentPadding: EdgeInsets.all(20),
+                            )),
+                      ),
+                    
+                  ),*/
+          
+                  Align(
+                    alignment: Alignment(-.88, 0),
+                    child: Text(
+                      'Number of guests',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0Xff5E577D),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                       Align(
+                   alignment: Alignment(-.100, 0),
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width - 100,
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: new BorderRadius.circular(12.0)),
+                        child: new TextFormField(
+                            controller: number_of_guest,
+                             keyboardType: TextInputType.number,
+                            autofocus: false,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                 return "Please enter No of Guest";
+                              }
+                              return null;
+                            },
+                                 decoration: InputDecoration(
+                                                hintText: 'e.g. 2',
+
+                              contentPadding: EdgeInsets.all(20),
+                            )),
+                      ),
+                    
+                  ),
+                  
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Align(
+                    alignment: Alignment(-.88, 0),
+                    child: Text(
+                      'Booking Channel',
+                      style: TextStyle(
+                          fontSize: 13,
+                         color: Color(0Xff5E577D),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                        Align(
+                   alignment: Alignment(-.100, 0),
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width - 100,
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: new BorderRadius.circular(12.0)),
+                        child: new TextFormField(
+                            controller: booking_channel,
+                             validator: (value) {
+                              if (value.isEmpty) {
+                                 return "Please enter the Booking channel";
+                              }
+                              return null;
+                            },
+                                 decoration: InputDecoration(
+                                                 hintText: 'e.g. airbnb',
+                              contentPadding: EdgeInsets.all(20),
+                            )),
+                      ),
+                    
+                  ),
+                
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Align(
+                        // alignment: Alignment(-.80, 0),
+                        child: Text(
+                          'Check-in date',
+                          style: TextStyle(
                             fontSize: 13,
-                            color: Color(0Xff5E577D),
-                            fontWeight: FontWeight.bold),
+                             color: Color(0Xff5E577D),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Align(
-                      child: Column(
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Align(
+                        // alignment: Alignment(.88, 0),
+                        child: Text(
+                          'Check-out date',
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Color(0Xff5E577D),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Align(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            new Container(
+                              width: 130,
+                              child: new TextFormField(
+                                controller: _textControllerin,
+                              
+                               validator: (value) {
+                              if (value.isEmpty) {
+                                 return "Please Select the Check in date";
+                              }
+                              return null;
+                            },
+                                decoration: InputDecoration(
+                                  //fillColor: Colors.white.withOpacity(0.6),
+                                     fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: 'MM/DD/YY',
+                                ),
+                                onTap: () {
+                                  _selectDatecheckin(context);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          new Container(
+                          Container(
                             width: 130,
                             child: new TextFormField(
-                              controller: _textControllerin,
+                                controller: _textControllerout,
+                                validator: (value) {
+                              if (value.isEmpty) {
+                                 return "Please Select the Check Out date";
+                              }
+                              return null;
+                            },
                               decoration: InputDecoration(
-                                //fillColor: Colors.white.withOpacity(0.6),
-                                   fillColor: Colors.white,
+                              //  fillColor: Colors.white.withOpacity(0.6),
+                                 fillColor: Colors.white,
                                 filled: true,
                                 hintText: 'MM/DD/YY',
+                                //labelText: 'Number of guests',
                               ),
                               onTap: () {
-                                _selectDatecheckin(context);
+                                _selectDatecheckout(context);
                               },
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      width: 50,
-                    ),
-                    new Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          width: 130,
-                          child: new TextFormField(
-                            controller: _textControllerout,
-                            decoration: InputDecoration(
-                            //  fillColor: Colors.white.withOpacity(0.6),
-                               fillColor: Colors.white,
-                              filled: true,
-                              hintText: 'MM/DD/YY',
-                              //labelText: 'Number of guests',
-                            ),
-                            onTap: () {
-                              _selectDatecheckout(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                 SizedBox(
-                  height: 60.0,
-                  width: 10.0,
-                  child: new RaisedButton(
-                  child: Text(
-                    'Next',
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    ],
                   ),
-                  color: Colors.deepPurpleAccent,
-                  onPressed: () {
-                     addReservation();
-                    //update_user_reservation(resevation_id); 
-                       Navigator.of(context).push(
-                      new MaterialPageRoute(
-                          builder: (BuildContext context) => new Reservation_List_db_Screen(
-                              email:"${widget.email}",
-                              property_name :  "${widget.propertyname}",
-                              property_id:"${widget.property_id}",
-                          )),
-                    );
-                  /*  Navigator.of(context).push(
-                      new MaterialPageRoute(
-                          builder: (BuildContext context) => new Profileimage(
-                              email:"${widget.email}",
-                              primaryguest:primary_guest.text,
-                          )),
-                    );*/
-                  },
-                ),),
-              ],
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                   SizedBox(
+                    height: 60.0,
+                    width: 10.0,
+                    child: new RaisedButton(
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    color: Colors.deepPurpleAccent,
+                    onPressed: () {
+                        if (formKey.currentState.validate()) {
+                                  setState(() {
+                                  _visible = false;
+                                });
+                                // No any error in validation
+                                print(_visible);
+                                //print(ownerpresent);
+                                formKey.currentState.save();
+                             
+                               addReservation();
+                         scaffoldkey.currentState.showSnackBar(SnackBar(
+                                content: Text("Start Adding Reservation"),                             
+                                
+                              ));
+                         Navigator.of(context).push(
+                        new MaterialPageRoute(
+                            builder: (BuildContext context) => new Reservation_List_db_Screen(
+                                email:"${widget.email}",
+                                property_name :  "${widget.propertyname}",
+                                property_id:"${widget.property_id}",
+                            )),
+                      );
+                                           
+                              } else {
+                                // validation error
+                                scaffoldkey.currentState.showSnackBar(SnackBar(
+                                content: Text("Failed to Add Reservation"),
+                              ));
+                              setState(() {
+                                  _validate = true;
+                                });
+                              }
+                   
+                    /*  Navigator.of(context).push(
+                        new MaterialPageRoute(
+                            builder: (BuildContext context) => new Profileimage(
+                                email:"${widget.email}",
+                                primaryguest:primary_guest.text,
+                            )),
+                      );*/
+                    },
+                  ),),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+}
+
+String validateEmail(String value) {
+  Pattern pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  RegExp regex = new RegExp(pattern);
+  if (!regex.hasMatch(value))
+    return 'Please Enter a  Valid Email Address';
+  else
+    return null;
 }

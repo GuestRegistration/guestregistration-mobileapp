@@ -7,6 +7,7 @@ import 'package:passwordless/src/auth_bloc.dart';
 import 'package:passwordless/src/auth_bloc_provider.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:passwordless/src/constants.dart';
+import 'package:passwordless/src/property_list_db.dart';
 import 'package:passwordless/src/repository.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 //import 'package:pin_view/pin_view.dart';
@@ -88,12 +89,18 @@ class AuthScreenState extends State<AuthScreen> {
         } 
         else {
           print("email  alreadyexists");
-            Navigator.pushReplacement(
+            /*Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => FirstScreen(
                   email: email.toString(),
-                )));
+                )));*/
+            Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Property_List_db_Screen(
+                  email: email.toString(),
+                )));    
         }
     });
   }
@@ -214,14 +221,24 @@ class AuthScreenState extends State<AuthScreen> {
                                 var currentemail = snapshot.data;
                                 existingemail = snapshot2.data;
                                 if (existingemail == null) {
+                                  print("Not an existingemail first time login");
                                   _authenticateUserWithEmail();
                                 } else {
-                                  Navigator.pushReplacement(
+                                   print("existingemail");
+                                   Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Property_List_db_Screen(
+                                                email: existingemail.email,
+                                              ))
+                                              );
+                                  /*Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => FirstScreen(
                                                 email: existingemail.email,
-                                              )));
+                                              ))
+                                              );*/
                                 }
                               }
                             },
