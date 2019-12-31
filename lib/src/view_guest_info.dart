@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:passwordless/src/Address_screen.dart';
+
 
 
 class View_guest_info extends StatefulWidget {
-  String resevation_id;
+  final String resevation_id;
 
   // List list;
   View_guest_info({this.resevation_id});
@@ -29,22 +31,6 @@ class _View_guest_infoState extends State<View_guest_info> {
         .getDocuments();
     return reservation_data;
   }
-
-  Future<QuerySnapshot> getguestinfo1() async {
-    var resevation_id = int.parse("${widget.resevation_id}");
-    Future<QuerySnapshot> reservation_data = Firestore.instance
-        .collection("Reservation")
-        .where("resevation_id", isEqualTo: resevation_id)
-        .getDocuments()
-        .then((string) {
-      print('Firestore response111: , ${string.documents.length}');
-      string.documents.forEach(
-        (doc) => print('Firestore response111: , ${doc.data}'),
-      );
-    });
-    return reservation_data;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,147 +100,332 @@ class _ItemListState extends State<ItemList> {
             //child:   Flexible(
             child: SingleChildScrollView(
               child: Container(
-                //  height: 300.0,
-                child: Card(
-                    semanticContainer: true,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    //elevation: 10,
-                    margin: EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new ListTile(
-                          title: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 100.0,
-                                child: Card(
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 10,
-                                  margin: EdgeInsets.all(15),
-                                  child: Row(
-                                    children: <Widget>[
-                                       Card(
-                                            semanticContainer: true,
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            elevation: 10,
-                                            margin: EdgeInsets.all(15),
-                                            child: new Text("Name on Booking"),
+            height: MediaQuery.of(context).size.height - 50,
+                child: SingleChildScrollView(
+                                  child: Card(
+                      semanticContainer: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      //elevation: 10,
+                      margin: EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                                Container(
+                             child: new Text("${widget.list[i]['Booking_channel']} ${widget.list[i]['CheckIn_date']} "'to'" ${widget.list[i]['Checkout_date']}}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
                                           ),
-                                      
-                                      Column(children: <Widget>[
+                          new ListTile(
+                            title: SingleChildScrollView(
+                                                          child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    height: 110.0,
+                                    width: 550.0,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 10,
+                                      margin: EdgeInsets.all(15),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                    
+                                    Container(
+                                      width: 550.0,
+                                      height:50.0,
 
-                                         Container(
-                                          
-                                          width: 100.0,  
-                                          height: 70.0,  
-                                            child: Card(
-                                            semanticContainer: true,
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            elevation: 10,
-                                            margin: EdgeInsets.all(15),
-                                            child: new Text(
-                                              "${widget.list[i]['Name']}"
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
+                                                                      child: GestureDetector(
+                                                                                                                                              child: Card
+                                      (
+                                         semanticContainer: true,
+                                              child: Text('✒️ Name on Booking')),
+                                                                   
+                                                                   onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                                        builder: (BuildContext context) => new FirstScreen(
+                                             
+                                            )))
+                                                                      ),
+                                    ),
+                                    
+                                          Column(children: <Widget>[
+                                              SizedBox(width: 120.0,),
+                                             Container(
+                                               
+                                                child: new Text(
+                                                  "${widget.list[i]['Name']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                               
                                             ),
+                                        ],
                                           ),
-                                        ),
-                                    ],
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Container(
-                                height: 100.0,
-                                child: Card(
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 10,
-                                  margin: EdgeInsets.all(15),
-                                  child: Row(
-                                    children: <Widget>[
-                                      new Text("Primary Guest"),
-                                      new Text(
-                                        "${widget.list[i]['Primary_guest']}"
-                                            .toString(),
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 100.0,
-                                child: Card(
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 10,
-                                  margin: EdgeInsets.all(15),
-                                  child: Row(
-                                    children: <Widget>[
-                                      new Text("CheckOut date"),
-                                      new Text(
-                                        "${widget.list[i]['Checkout_date']}"
-                                            .toString(),
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 100.0,
-                                child: Card(
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 10,
-                                  margin: EdgeInsets.all(15),
-                                  child: Row(
-                                    children: <Widget>[
-                                      new Text("CheckIn date"),
-                                      new Text(
-                                        "${widget.list[i]['CheckIn_date']}"
-                                            .toString(),
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                                      Container(
+                                     height: 110.0,
+                                    width: 550.0,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 10,
+                                      margin: EdgeInsets.all(15),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          
+                                    Container(
+                                      width: 550.0,
+                                      height:50.0,
 
-                          /*  subtitle: new Column(
-                              children: <Widget>[
-                                new Text(
-                                  "Name :${widget.list[i]['Name']}".toString(),
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
-                              ],
-                            )*/
-                        ),
-                      ],
-                    )),
+                                                                      child: Card
+                                      (
+                                         semanticContainer: true,
+                                              child: Text('✒️ Primary Guest')),
+                                    ),
+                                    
+                                          Column(children: <Widget>[
+                                              SizedBox(width: 120.0,),
+                                             Container(
+                                               
+                                                child: new Text(
+                                                    "${widget.list[i]['Primary_guest']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                               
+                                            ),
+                                        ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                      Container(
+                                    height: 110.0,
+                                    width: 550.0,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 10,
+                                      margin: EdgeInsets.all(15),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          
+                                    Container(
+                                      width: 550.0,
+                                      height:50.0,
+
+                                                                      child: Card
+                                      (
+                                         semanticContainer: true,
+                                              child: Text('\u{1F465} Number Guest')),
+                                    ),
+                                    
+                                          Column(children: <Widget>[
+                                              SizedBox(width: 120.0,),
+                                             Container(
+                                               
+                                                child: new Text(
+                                                    "${widget.list[i]['No_of_guest']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                               
+                                            ),
+                                        ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),   
+                                      Container(
+                                    height: 110.0,
+                                    width: 550.0,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 10,
+                                      margin: EdgeInsets.all(15),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          
+                                    Container(
+                                      width: 550.0,
+                                     height:50.0,
+
+                                                                      child: Card
+                                      (
+                                         semanticContainer: true,
+                                              child: Text('🔑 CheckIn date')),
+                                    ),
+                                    
+                                          Column(children: <Widget>[
+                                              SizedBox(width: 120.0,),
+                                             Container(
+                                               
+                                                child: new Text(
+                                                    "${widget.list[i]['CheckIn_date']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                               
+                                            ),
+                                        ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),   
+                                   Container(
+                                    height: 112.0,
+                                    width: 550.0,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 10,
+                                      margin: EdgeInsets.all(15),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          
+                                    Container(
+                                      width: 550.0,
+                                      height:50.0,
+
+                                                                      child: Card
+                                      (
+                                         semanticContainer: true,
+                                              child: Text('🚪 Checkout date')),
+                                    ),
+                                    
+                                          Column(children: <Widget>[
+                                              SizedBox(width: 120.0,),
+                                             Container(
+                                               
+                                                child: new Text(
+                                                    "${widget.list[i]['Checkout_date']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                               
+                                            ),
+                                        ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ), 
+                               Container(
+                                    height: 112.0,
+                                    width: 550.0,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 10,
+                                      margin: EdgeInsets.all(15),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          
+                                    Container(
+                                      width: 550.0,
+                                      height:50.0,
+
+                                                                      child: Card
+                                      (
+                                         semanticContainer: true,
+                                              child: Text(' 💳 Payment')),
+                                    ),
+                                    
+                                          Column(children: <Widget>[
+                                              SizedBox(width: 120.0,),
+                                             Container(
+                                               
+                                                child: new Text('💵'
+                                                    "${widget.list[i]['payment']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                               
+                                            ),
+                                        ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ), 
+                                   Container(
+                                    height: 112.0,
+                                    width: 550.0,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 10,
+                                      margin: EdgeInsets.all(15),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          
+                                    Container(
+                                      width: 550.0,
+                                      height:50.0,
+
+                                                                      child: Card
+                                      (
+                                         semanticContainer: true,
+                                              child: Text(' 📄 Signed Document')),
+                                    ),
+                                    
+                                          Column(children: <Widget>[
+                                              SizedBox(width: 120.0,),
+                                             Container(
+                                               
+                                                 
+                                               
+                                            ),
+                                        ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ), 
+                                ],
+                              ),
+                            ),
+
+                           
+                          ),
+                        ],
+                      )),
+                ),
               ),
             ),
             // ),

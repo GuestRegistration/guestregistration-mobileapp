@@ -6,14 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Img;
 import 'package:passwordless/src/Termsandcon.dart';
-import 'package:passwordless/src/property_list.dart';
 import 'package:passwordless/src/property_list_db.dart';
 import 'dart:math' as Math;
 
 import 'package:path_provider/path_provider.dart';
 
 class Completesetup extends StatefulWidget {
-  String addressline1, email, city, state;
+ final String addressline1, email, city, state;
   Completesetup({this.addressline1, this.email, this.city, this.state});
   @override
   _CompletesetupState createState() => new _CompletesetupState();
@@ -23,7 +22,7 @@ class _CompletesetupState extends State<Completesetup> {
   File img1;
   String link;
   String _error = "";
-  GlobalKey<FormState> _key = new GlobalKey();
+  //GlobalKey<FormState> _key = new GlobalKey();
   final formKey = GlobalKey<FormState>();
   bool _validate = false;
   String name, email, mobile;
@@ -71,7 +70,7 @@ class _CompletesetupState extends State<Completesetup> {
 
   void update_user(randomNumber) async {
     var email = "${widget.email}";
-    var firestoreid;
+    //var firestoreid;
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -182,7 +181,7 @@ void navigate(){
     print("randomnumber" + randomNumber.toString());
     var email = "${widget.email}";
     var url;
-    int i;
+    
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -196,7 +195,7 @@ void navigate(){
       dynamic host;
       int length;
       String value = "Owner";
-      var parsed, host_data;
+    
 
       string.documents.forEach((doc) async => {
             length = doc.data['host'].length,
@@ -365,10 +364,12 @@ void navigate(){
                             autofocus: false,
                             validator: (value) {
                               if (value.isEmpty) {
-                             //   print(value.length);
+                            
                                 return "please enter Property name ";
                               }
+                              return null;
                             },
+                            
                             decoration: InputDecoration(
                               hintText: 'Name',
                               //prefixIcon: Icon(Icons.mail),
@@ -565,7 +566,7 @@ void navigate(){
                                
                                 contentPadding: const EdgeInsets.all(0.0),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide: BorderSide(color: Colors.black),
                                 ),
                                 isDense: true),
                             onChanged: (String newValue) {
@@ -576,7 +577,7 @@ void navigate(){
                             items: <String>['Owner', 'Staff'].map((role) {
                               return DropdownMenuItem(
                                 child: new Text(role,style:
-                                  TextStyle(color: Colors.white, fontSize: 15.0),),
+                                  TextStyle( color: Colors.pink, fontSize: 15.0),),
                                 value: role,
                               );
                             }).toList(),
@@ -584,6 +585,7 @@ void navigate(){
                               if (value?.isEmpty ?? true) {
                                 return 'Please enter a valid type of business';
                               }
+                              return null;
                             },
                           ),
                         ),
@@ -622,6 +624,7 @@ void navigate(){
                               //  print(value.length);
                                 return "please enter Property Address ";
                               }
+                              return null;
                             },
                             controller: address_line1,
                             keyboardType: TextInputType.text,
@@ -674,6 +677,7 @@ void navigate(){
                             //    print(value.length);
                                 return "please enter Property City ";
                               }
+                              return null;
                             },
                             decoration: InputDecoration(
                               hintText: 'City',
@@ -720,6 +724,7 @@ void navigate(){
                              //   print(value.length);
                                 return "please enter Property State ";
                               }
+                              return null;
                             },
                             decoration: InputDecoration(
                               hintText: 'State',
