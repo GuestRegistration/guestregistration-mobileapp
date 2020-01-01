@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   TextEditingController propertiesname = new TextEditingController();
   TextEditingController role = new TextEditingController();
 
-  var host_Property, host_role;
+  var hostProperty, hostrole;
   List host1;
 
   void initState() {
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Map<String, dynamic> handleSubmit() {
+  /*Map<String, dynamic> handleSubmit() {
     final FormState form = formKey.currentState;
     if (form.validate()) {
       // print("Hosts"+hosts[0].toString());
@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
     }
     //return null;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

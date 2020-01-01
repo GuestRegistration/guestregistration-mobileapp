@@ -12,7 +12,7 @@ class Property {
   //Address address;
   String phone;
   Team team;
-  Property_Reservation reservation;
+  PropertyReservation reservation;
   Guestform guestform;
   Property(
       { //this.key,
@@ -32,7 +32,7 @@ class Property {
       //  address: Address.fromJson(json["address"]),
         phone: json["phone"],
         team: Team.fromJson(json["team"]),
-        reservation: Property_Reservation.fromJson(json["reservation"]),
+        reservation: PropertyReservation.fromJson(json["reservation"]),
         guestform: Guestform.fromJson(json["guestform"]));
   }
 }
@@ -60,11 +60,11 @@ class Team {
   }
 }
 
-class Property_Reservation {
+class PropertyReservation {
   String reservation;
-  Property_Reservation({this.reservation});
-  factory Property_Reservation.fromJson(Map<String, dynamic> json) {
-    return new Property_Reservation(reservation: json['reservation']);
+  PropertyReservation({this.reservation});
+  factory PropertyReservation.fromJson(Map<String, dynamic> json) {
+    return new PropertyReservation(reservation: json['reservation']);
   }
 }
 

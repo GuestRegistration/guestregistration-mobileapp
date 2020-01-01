@@ -12,19 +12,19 @@ import 'dart:async';
 class EditProperty extends StatefulWidget {
   final String addressline1,
       propertyname,
-      property_id,
+      propertyid,
       email,
       terms,
       state,
       city,
       useremail;
-  String Property_logo;
+  final String propertylogo;
   EditProperty(
       {this.addressline1,
       this.propertyname,
       this.email,
-      this.property_id,
-      this.Property_logo,
+      this.propertyid,
+      this.propertylogo,
       this.terms,
       this.city,
       this.state,
@@ -78,8 +78,7 @@ class _EditPropertyState extends State<EditProperty> {
   }
 
   @override
-  var product_image;
-  var p_img;
+
 
   void initState() {
     //controllerId = new TextEditingController(text: widget.list[widget.index]['id']);
@@ -91,22 +90,22 @@ class _EditPropertyState extends State<EditProperty> {
     state = new TextEditingController(text: widget.state);
 
     print(addressline1);
-    print(widget.Property_logo);
+    print(widget.propertylogo);
     super.initState();
   }
 
-  void update_property() async {
+  void updateproperty() async {
     print("inside update_Property");
     var url;
     StorageReference storageReference;
     StorageUploadTask uploadTask;
-    StorageTaskSnapshot downloadUrl;
-    var propertyid = "${widget.property_id}";
-    var property_id = int.parse(propertyid);
-    print(property_id);
+    //StorageTaskSnapshot downloadUrl;
+    var propertyid = "${widget.propertyid}";
+    var propertyid1 = int.parse(propertyid);
+    print(propertyid);
     Firestore.instance
         .collection("Properties")
-        .where("Propertyid", isEqualTo: property_id)
+        .where("Propertyid", isEqualTo: propertyid1)
         .getDocuments()
         .then((string) async {
       print('Firestore response111: , ${string.documents.length}');
@@ -125,7 +124,7 @@ class _EditPropertyState extends State<EditProperty> {
                   },
                   //'Property_logo':widget.Property_logo,
                   'email': email.text,
-                  'Property_Name': propertyname.text,
+                  //'Property_Name': propertyname.text,
                   'terms': terms.text,
                   // '':
                 }).whenComplete(() {
@@ -133,7 +132,7 @@ class _EditPropertyState extends State<EditProperty> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (contex) => Property_List_db_Screen(
+                          builder: (contex) => PropertyListdbScreen(
                                 email: "${widget.useremail}",
                                 // property_id:"${widget.property_id}",
                               )));
@@ -168,7 +167,7 @@ class _EditPropertyState extends State<EditProperty> {
                   },
                   'Property_logo': url,
                   'email': email.text,
-                  'Property_Name': propertyname.text,
+                  //'Property_Name': propertyname.text,
                   'terms': terms.text,
                   // '':
                 }).whenComplete(() {
@@ -176,7 +175,7 @@ class _EditPropertyState extends State<EditProperty> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (contex) => Property_List_db_Screen(
+                          builder: (contex) => PropertyListdbScreen(
                                 email: "${widget.useremail}",
                                 // property_id:"${widget.property_id}",
                               )));
@@ -267,7 +266,7 @@ class _EditPropertyState extends State<EditProperty> {
                 SizedBox(
                   height: 10.0,
                 ),
-                new TextField(
+               /* new TextField(
                   controller: propertyname,
                   decoration: new InputDecoration(
                     icon: const Icon(Icons.storage),
@@ -281,7 +280,7 @@ class _EditPropertyState extends State<EditProperty> {
                       borderSide: BorderSide(color: Colors.black),
                     ),
                   ),
-                ),
+                ),*/
                 SizedBox(
                   height: 10.0,
                 ),
@@ -295,7 +294,7 @@ class _EditPropertyState extends State<EditProperty> {
                                 child: CircleAvatar(
                                   radius: 100.0,
                                   backgroundImage:
-                                      NetworkImage("${widget.Property_logo}"),
+                                      NetworkImage("${widget.propertylogo}"),
                                   backgroundColor: Colors.transparent,
                                 ),
                               )
@@ -351,7 +350,7 @@ class _EditPropertyState extends State<EditProperty> {
                       child: Text("Update Property"),
                       color: Colors.blueAccent,
                       onPressed: () {
-                        update_property();
+                        updateproperty();
                       },
                     ),
                   ],

@@ -4,36 +4,37 @@ import 'package:flutter/material.dart';
 //import 'package:guestregistration/property_update.dart';
 import 'package:passwordless/Model/property_model.dart';
 
-import '../completesetup.dart';
+import 'completesetup.dart';
 
-class Property_ListScreen extends StatefulWidget {
+
+class PropertyListScreen extends StatefulWidget {
   //final Map<String, dynamic> product;
-  String address, email;
-  List list;
-  Property_ListScreen({this.address, this.email, this.list});
+  final String address, email;
+  final List list;
+  PropertyListScreen({this.address, this.email, this.list});
   @override
-  _Property_ListScreenState createState() => new _Property_ListScreenState();
+  _PropertyListScreenState createState() => new _PropertyListScreenState();
 }
 
 FirebaseDatabase database = new FirebaseDatabase();
-DatabaseReference _propertyRef;
+//DatabaseReference _propertyRef;
 final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 Property property;
 List<Property> properties = List();
 DatabaseReference propertyRef;
 
-String property_address;
+String propertyaddress;
 
-var address_split = [];
+var addresssplit = [];
 String delimiter = ',';
 
 String phone = "9787591660";
 final TextEditingController addresscontroller =
-    TextEditingController(text: property_address);
+    TextEditingController(text: propertyaddress);
 String addressline1, city, state;
 
-class _Property_ListScreenState extends State<Property_ListScreen> {
+class _PropertyListScreenState extends State<PropertyListScreen> {
   getUsers() {
     return Firestore.instance.collection("users").snapshots();
   }
@@ -61,12 +62,12 @@ class _Property_ListScreenState extends State<Property_ListScreen> {
 
   List list;
   void initState() {
-    property_address = "${widget.address}";
-    address_split = property_address.split(delimiter);
-    print(address_split);
-    addressline1 = address_split[0];
-    city = address_split[1];
-    state = address_split[2];
+    propertyaddress = "${widget.address}";
+    addresssplit = propertyaddress.split(delimiter);
+    print(addresssplit);
+    addressline1 = addresssplit[0];
+    city = addresssplit[1];
+    state = addresssplit[2];
     print(addressline1);
     print(city);
     print(state);

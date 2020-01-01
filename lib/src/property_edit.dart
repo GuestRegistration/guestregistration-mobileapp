@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'property_edit_text.dart';
 
 class PropertyEdit extends StatefulWidget {
-final  String email,property_id;
+final  String email,propertyid;
 
   // List list;
-  PropertyEdit({this.email,this.property_id});
+  PropertyEdit({this.email,this.propertyid});
   @override
   _PropertyEditState createState() =>
       new _PropertyEditState();
@@ -29,12 +29,12 @@ class _PropertyEditState extends State<PropertyEdit> {
 
 
     Future<QuerySnapshot> getproperty() async {
-     var propertyid = "${widget.property_id}";
-              var property_id = int.parse(propertyid);
-     print("${widget.property_id}");
+     var propertyid = "${widget.propertyid}";
+              var propertyid1 = int.parse(propertyid);
+     print("${widget.propertyid}");
      Future<QuerySnapshot> property =  Firestore.instance
         .collection("Properties")
-        .where("Propertyid", isEqualTo: property_id)
+        .where("Propertyid", isEqualTo: propertyid1)
         .getDocuments();
  
 return property;
@@ -355,9 +355,9 @@ return property;
                                             return EditProperty(
                                               addressline1: "${document.data['Address']['addressline1']}",
                                               propertyname: "${document['Property_Name']}",
-                                              property_id:"${document['Propertyid']}",
+                                              propertyid:"${document['Propertyid']}",
                                               email: "${document['email']}",
-                                            Property_logo:document.data['Property_logo'],
+                                              propertylogo:document.data['Property_logo'],
                                            // Property_logo: img1,
                                               terms : "${document['terms']}",
                                               city: "${document.data['Address']['city']}",

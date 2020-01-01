@@ -7,24 +7,24 @@ import 'package:passwordless/src/reservation_list_db.dart';
 
 import 'Address_screen.dart';
 
-class Property_List_db_Screen extends StatefulWidget {
+class PropertyListdbScreen extends StatefulWidget {
  final String email;
 
   // List list;
-  Property_List_db_Screen({this.email});
+ PropertyListdbScreen({this.email});
   @override
-  _Property_List_db_ScreenState createState() =>
-      new _Property_List_db_ScreenState();
+  _PropertyListdbScreenState createState() =>
+      new _PropertyListdbScreenState();
 }
 
-class _Property_List_db_ScreenState extends State<Property_List_db_Screen> {
+class _PropertyListdbScreenState extends State<PropertyListdbScreen> {
   List host = List();
     Future<QuerySnapshot> _listFuture;
   Future<QuerySnapshot> future;
     void refresh() {
     print("inside refresh");
        Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (contex)=> Property_List_db_Screen(
+                        builder: (contex)=> PropertyListdbScreen(
                           email: "${widget.email}",
                         )
                       ));
@@ -158,13 +158,13 @@ class _ItemListState extends State<ItemList> {
   void refresh() {
     print("inside refresh");
     Navigator.of(context).push(new MaterialPageRoute(
-      builder: (BuildContext context) => new Property_List_db_Screen(
+      builder: (BuildContext context) => new PropertyListdbScreen(
 
       ),
     ));
   }
 
-  void delete_property(propertyid,i) {
+  void deleteproperty(propertyid,i) {
     print("inside delete_property function");
     print("propertyname" + propertyid);
     var propertyid1 = int.parse(propertyid);
@@ -186,7 +186,7 @@ class _ItemListState extends State<ItemList> {
        //     Navigator.pop(context);
 
                               Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (contex)=> Property_List_db_Screen(
+                        builder: (contex)=> PropertyListdbScreen(
                           email: "${widget.email}",
                         )
                       ));
@@ -198,7 +198,7 @@ class _ItemListState extends State<ItemList> {
     });
   }
 
-  void delete_user_property(propertyname,city,role,propertyid) async {
+  void deleteuserproperty(propertyname,city,role,propertyid) async {
     var email = "${widget.email}";
         var propertyid1 = int.parse(propertyid);
         print(propertyid1);
@@ -271,16 +271,33 @@ class _ItemListState extends State<ItemList> {
                           ],) ,
                           subtitle:  new Text("City :${widget.list[i]['city']}".toString(),style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold,color: Colors.black),),
 
-                          leading: new IconButton(
+                          leading: Column(
+                            children: <Widget>[
+                                                  new IconButton(
                             icon: new Icon(Icons.delete),
-                            color: Colors.black,
+                            color: Colors.red,
                             onPressed: () {
                               //  setState(() {
-  delete_user_property("${widget.list[i]['propertiesname']}","${widget.list[i]['city']}","${widget.list[i]['role']}","${widget.list[i]['Propertyid']}");
-                             delete_property("${widget.list[i]['Propertyid']}",i);
+  deleteuserproperty("${widget.list[i]['propertiesname']}","${widget.list[i]['city']}","${widget.list[i]['role']}","${widget.list[i]['Propertyid']}");
+                             deleteproperty("${widget.list[i]['Propertyid']}",i);
                               // });
                             },
                           ),
+                                                
+                            ],
+                          ),
+                          trailing:  new IconButton(
+                            icon: new Icon(Icons.edit),
+                            color: Colors.black,
+                            onPressed: () {
+                               Navigator.of(context).push(new MaterialPageRoute(
+                                        builder: (BuildContext context) => new PropertyEdit(
+                                            email: "${widget.email}",//Propertyid
+                                            propertyid:"${widget.list[i]['Propertyid']}",
+                                            )));
+                            },
+                          ),
+      
                         ),
         Row(
                       children: <Widget>[
@@ -314,7 +331,7 @@ class _ItemListState extends State<ItemList> {
                                               
                                               propertyname:
                                                   "${widget.list[i]['propertiesname']}",
-                                                      property_id:"${widget.list[i]['Propertyid']}",
+                                                      propertyid:"${widget.list[i]['Propertyid']}",
                                               email: "${widget.email}",
                                               
 
@@ -350,10 +367,10 @@ class _ItemListState extends State<ItemList> {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) {
-                                            return Reservation_List_db_Screen(
+                                            return ReservationLisdbScreen(
                                                 email:"${widget.email}",
-                                property_name : "${widget.list[i]['propertiesname']}",
-                                property_id: "${widget.list[i]['Propertyid']}",
+                                propertyname : "${widget.list[i]['propertiesname']}",
+                                propertyid: "${widget.list[i]['Propertyid']}",
                                                 );
                                           },
                                         ),
@@ -373,11 +390,11 @@ class _ItemListState extends State<ItemList> {
                         ],
                       )),
                     ),
-                                       onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                                       /*onTap: () => Navigator.of(context).push(new MaterialPageRoute(
                                         builder: (BuildContext context) => new PropertyEdit(
                                             email: "${widget.email}",//Propertyid
-                                            property_id:"${widget.list[i]['Propertyid']}",
-                                            )))
+                                            propertyid:"${widget.list[i]['Propertyid']}",
+                                            )))*/
                   ),
                 ),
               );

@@ -11,7 +11,6 @@ import 'package:passwordless/src/property_list_db.dart';
 import 'package:passwordless/src/repository.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 //import 'package:pin_view/pin_view.dart';
-import 'Address_screen.dart';
 import 'login_page.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -67,7 +66,7 @@ class AuthScreenState extends State<AuthScreen> {
   }
  void _authCompleted() async {
     var email = await _bloc.getUserEmailFromStorage();
-    print("email" + email);  var firestoreid;
+    print("email" + email); 
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -98,7 +97,7 @@ class AuthScreenState extends State<AuthScreen> {
             Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => Property_List_db_Screen(
+            builder: (context) => PropertyListdbScreen(
                   email: email.toString(),
                 )));    
         }
@@ -228,7 +227,7 @@ class AuthScreenState extends State<AuthScreen> {
                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Property_List_db_Screen(
+                                          builder: (context) => PropertyListdbScreen(
                                                 email: existingemail.email,
                                               ))
                                               );
@@ -375,7 +374,7 @@ class AuthScreenState extends State<AuthScreen> {
   /// Besides the user entering their phone number, we also need to know the user's country code
   /// for that we are gonna use a library CountryCodePicker.
   /// The method takes in an [error] message from our validator.
-  Widget _phoneInputField(String error) {
+  /*Widget _phoneInputField(String error) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -384,14 +383,7 @@ class AuthScreenState extends State<AuthScreen> {
           Flexible(
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-              /*child: CountryCodePicker(
-                onChanged: (countryCode) =>
-                    _bloc.changeDialCode(countryCode.dialCode),
-                initialSelection: _myLocale.countryCode,
-                favorite: [_myLocale.countryCode],
-                showCountryOnly: false,
-                alignLeft: true,
-              ),*/
+               
               child: Container(),
             ),
           ),
@@ -415,7 +407,7 @@ class AuthScreenState extends State<AuthScreen> {
         ],
       ),
     );
-  }
+  }*/
 
   /*Widget _smsCodeInputField() {
     return Column(children: <Widget>[
@@ -441,7 +433,7 @@ class AuthScreenState extends State<AuthScreen> {
         .whenComplete(() => _bloc.changeAuthStatus(AuthStatus.emailLinkSent)));
   }
 
-  void _authenticateUserWithPhone() {
+  /*void _authenticateUserWithPhone() {
     PhoneVerificationFailed verificationFailed = (AuthException authException) {
       _bloc.changeAuthStatus(AuthStatus.phoneAuth);
       _showSnackBar(Constants.verificationFailed);
@@ -473,7 +465,7 @@ class AuthScreenState extends State<AuthScreen> {
     _bloc.changeAuthStatus(AuthStatus.smsSent);
     _bloc.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent,
         verificationCompleted, verificationFailed);
-  }
+  }*/
 
   _showSnackBar(String error) {
     final snackBar = SnackBar(content: Text(error));

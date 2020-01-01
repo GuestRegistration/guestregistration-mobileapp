@@ -4,32 +4,32 @@ import 'package:passwordless/src/Address_screen.dart';
 
 
 
-class View_guest_info extends StatefulWidget {
-  final String resevation_id;
+class Viewguestinfo extends StatefulWidget {
+  final String resevationid;
 
   // List list;
-  View_guest_info({this.resevation_id});
+  Viewguestinfo({this.resevationid});
   @override
-  _View_guest_infoState createState() => new _View_guest_infoState();
+  _ViewguestinfoState createState() => new _ViewguestinfoState();
 }
 
-class _View_guest_infoState extends State<View_guest_info> {
-  var resevation_id;
+class _ViewguestinfoState extends State<Viewguestinfo> {
+  var resevationid;
 
   void initState() {
     super.initState();
-    print("${widget.resevation_id}");
-    resevation_id = "${widget.resevation_id}";
+    print("${widget.resevationid}");
+    resevationid = "${widget.resevationid}";
     // getguestinfo();
   }
 
   Future<QuerySnapshot> getguestinfo() async {
-    var resevation_id = int.parse("${widget.resevation_id}");
-    Future<QuerySnapshot> reservation_data = Firestore.instance
+    var resevationid = int.parse("${widget.resevationid}");
+    Future<QuerySnapshot> reservationdata = Firestore.instance
         .collection("Reservation")
-        .where("resevation_id", isEqualTo: resevation_id)
+        .where("resevation_id", isEqualTo: resevationid)
         .getDocuments();
-    return reservation_data;
+    return reservationdata;
   }
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class _ItemListState extends State<ItemList> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                                 Container(
-                             child: new Text("${widget.list[i]['Booking_channel']} ${widget.list[i]['CheckIn_date']} "'to'" ${widget.list[i]['Checkout_date']}}",
+                             child: new Text("${widget.list[i]['Booking_channel']} ${widget.list[i]['CheckIn_date']} "'to'" ${widget.list[i]['Checkout_date']}",
                                                   style: TextStyle(
                                                       fontSize: 15.0,
                                                       fontWeight: FontWeight.bold,

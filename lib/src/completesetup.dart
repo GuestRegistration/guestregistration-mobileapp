@@ -42,13 +42,13 @@ class _CompletesetupState extends State<Completesetup> {
       composing: TextRange.empty,
     );
   });*/
-      address_line1.clear();
+      addressline1.clear();
       city.clear();
       state.clear();
     } else {
       print("inside else condition");
 
-      address_line1 = new TextEditingController(text: "${widget.addressline1}");
+      addressline1 = new TextEditingController(text: "${widget.addressline1}");
       city = new TextEditingController(text: "${widget.city}");
 
       state = new TextEditingController(text: "${widget.state}");
@@ -57,18 +57,18 @@ class _CompletesetupState extends State<Completesetup> {
     super.initState();
   }
 
-  TextEditingController property_email = new TextEditingController();
-  TextEditingController property_name = new TextEditingController();
-  TextEditingController property_phone = new TextEditingController();
-  TextEditingController property_staff = new TextEditingController();
-  TextEditingController address_line1 = new TextEditingController();
+  TextEditingController propertyemail = new TextEditingController();
+  TextEditingController propertyname = new TextEditingController();
+  TextEditingController propertyphone = new TextEditingController();
+  TextEditingController propertystaff = new TextEditingController();
+  TextEditingController addressline1 = new TextEditingController();
   TextEditingController city = new TextEditingController();
   TextEditingController state = new TextEditingController();
   String dropdownValue;
   final scaffoldkey = GlobalKey<ScaffoldState>();
   bool _visible = false;
 
-  void update_user(randomNumber) async {
+  void updateuser(randomNumber) async {
     var email = "${widget.email}";
     //var firestoreid;
     Firestore.instance
@@ -86,7 +86,7 @@ class _CompletesetupState extends State<Completesetup> {
                 {
               'host': FieldValue.arrayUnion([
                 {
-                  'propertiesname': property_name.text,
+                  'propertiesname': propertyname.text,
                   'city': city.text,
                   'role': dropdownValue,
                   'Propertyid': randomNumber,
@@ -103,7 +103,7 @@ class _CompletesetupState extends State<Completesetup> {
   }
 void navigate(){
   Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (contex)=> Property_List_db_Screen(
+                        builder: (contex)=> PropertyListdbScreen(
                           email: "${widget.email}",
                         )
                       ));
@@ -139,7 +139,7 @@ void navigate(){
 
   Future uploadFile() async {
     StorageReference storageReference =
-        FirebaseStorage.instance.ref().child(property_name.text);
+        FirebaseStorage.instance.ref().child(propertyname.text);
     StorageUploadTask uploadTask = storageReference.putFile(img1);
     await uploadTask.onComplete;
     print('File Uploaded');
@@ -152,7 +152,7 @@ void navigate(){
 
   Future uploadimage() async {
     StorageReference storageReference =
-        FirebaseStorage.instance.ref().child(property_name.text);
+        FirebaseStorage.instance.ref().child(propertyname.text);
     StorageUploadTask uploadTask = storageReference.putFile(img1);
     final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
     final String url = (await downloadUrl.ref.getDownloadURL());
@@ -162,14 +162,14 @@ void navigate(){
   }
 
   bool ownercheck(List host, String value) {
-    bool owner_flag = false;
+    bool ownerflag = false;
     print(host);
     for (int i = 0; i < host.length; i++) {
-      owner_flag = host[i]['role'].contains(value);
-      print("owner_flag" + owner_flag.toString());
-      if (owner_flag == true) {
+      ownerflag = host[i]['role'].contains(value);
+      print("owner_flag" + ownerflag.toString());
+      if (ownerflag == true) {
         print("owner present");
-        return owner_flag;
+        return ownerflag;
       }
     }
     return false;
@@ -212,7 +212,7 @@ void navigate(){
             if(dropdownValue == "Staff"){
                 print("inside if"),
                    storageReference =
-                    FirebaseStorage.instance.ref().child(property_name.text),
+                    FirebaseStorage.instance.ref().child(propertyname.text),
                 uploadTask = storageReference.putFile(img1),
                 downloadUrl = (await uploadTask.onComplete),
                 url = (await downloadUrl.ref.getDownloadURL()),
@@ -225,12 +225,12 @@ void navigate(){
                         .document()
                         .setData({
                       'Propertyid': randomNumber,
-                      'Property_Name': property_name.text,
+                      'Property_Name': propertyname.text,
                       'Property_logo': url,
-                      'email': property_email.text,
-                      'phone': property_phone.text,
+                      'email': propertyemail.text,
+                      'phone': propertyphone.text,
                       'Team': {
-                        'staff': property_staff.text,
+                        'staff': propertystaff.text,
                         "owner": "${widget.email}"
                       },
                       /* 'Team': FieldValue.arrayUnion([
@@ -243,13 +243,13 @@ void navigate(){
                       'Reservation': {'listofreservation': "${widget.email}"},
                       'Reservation': {'guestform': "${widget.email}"},
                       'Address': {
-                        'addressline1': address_line1.text,
+                        'addressline1': addressline1.text,
                         'city': city.text,
                         'state': state.text
                       }
                     });
                   },
-                ).whenComplete(() => update_user(randomNumber))
+                ).whenComplete(() => updateuser(randomNumber))
               }
           
               else if (ownerpresent == true)
@@ -266,7 +266,7 @@ void navigate(){
               {
                 print("owner_flag false"),
                 storageReference =
-                    FirebaseStorage.instance.ref().child(property_name.text),
+                    FirebaseStorage.instance.ref().child(propertyname.text),
                 uploadTask = storageReference.putFile(img1),
                 downloadUrl = (await uploadTask.onComplete),
                 url = (await downloadUrl.ref.getDownloadURL()),
@@ -279,12 +279,12 @@ void navigate(){
                         .document()
                         .setData({
                       'Propertyid': randomNumber,
-                      'Property_Name': property_name.text,
+                      'Property_Name': propertyname.text,
                       'Property_logo': url,
-                      'email': property_email.text,
-                      'phone': property_phone.text,
+                      'email': propertyemail.text,
+                      'phone': propertyphone.text,
                       'Team': {
-                        'staff': property_staff.text,
+                        'staff': propertystaff.text,
                         "owner": "${widget.email}"
                       },
                       /* 'Team': FieldValue.arrayUnion([
@@ -297,13 +297,13 @@ void navigate(){
                       'Reservation': {'listofreservation': "${widget.email}"},
                       'Reservation': {'guestform': "${widget.email}"},
                       'Address': {
-                        'addressline1': address_line1.text,
+                        'addressline1': addressline1.text,
                         'city': city.text,
                         'state': state.text
                       }
                     });
                   },
-                ).whenComplete(() => update_user(randomNumber))
+                ).whenComplete(() => updateuser(randomNumber))
               },
               
           });
@@ -359,7 +359,7 @@ void navigate(){
                          color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
-                            controller: property_name,
+                            controller: propertyname,
                             keyboardType: TextInputType.emailAddress,
                             autofocus: false,
                             validator: (value) {
@@ -408,7 +408,7 @@ void navigate(){
                               //color: Color(0xffD6C9F5),
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
-                            controller: property_email,
+                            controller: propertyemail,
                             keyboardType: TextInputType.emailAddress,
                             autofocus: false,
                             validator: validateEmail,
@@ -498,7 +498,7 @@ void navigate(){
                             onSaved: (String val) {
                               mobile = val;
                             },
-                            controller: property_phone,
+                            controller: propertyphone,
                             keyboardType: TextInputType.number,
                             autofocus: false,
                             maxLength: 10,
@@ -535,7 +535,7 @@ void navigate(){
                            color: Colors.white,
                               borderRadius: new BorderRadius.circular(12.0)),
                           child: TextFormField(
-                            controller: property_staff,
+                            controller: propertystaff,
                             keyboardType: TextInputType.emailAddress,
                             autofocus: false,
                             validator: validateEmail,
@@ -626,7 +626,7 @@ void navigate(){
                               }
                               return null;
                             },
-                            controller: address_line1,
+                            controller: addressline1,
                             keyboardType: TextInputType.text,
                             autofocus: false,
 
@@ -777,15 +777,15 @@ void navigate(){
                                 Navigator.pushReplacement(context, MaterialPageRoute(
                         builder: (contex)=> Termsandcon(
                           email: "${widget.email}",
-                           propertiesname: property_name.text,
+                           propertiesname: propertyname.text,
                           city: city.text,
                           dropdownValue: dropdownValue,
                           img1 : img1,
-                      property_email: property_email.text,
-                      phone: property_phone.text,
-                      staff: property_staff.text,
+                      propertyemail: propertyemail.text,
+                      phone: propertyphone.text,
+                      staff: propertystaff.text,
                        owner: "${widget.email}",
-                       address_line1:address_line1.text,
+                       addressline1:addressline1.text,
                                state: state.text,
                          
                       )));

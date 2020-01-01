@@ -5,7 +5,7 @@ import './property_list.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class AnimationScreen extends StatefulWidget {
-  String address,email;
+ final String address,email;
   AnimationScreen({this.address,this.email});
   @override
   _AnimationScreenState createState() => new _AnimationScreenState();
@@ -19,7 +19,7 @@ class _AnimationScreenState extends State<AnimationScreen> {
 
   void navigationPage() {
     Navigator.of(context).push(new MaterialPageRoute(
-    builder: (BuildContext context) => new Property_ListScreen(
+    builder: (BuildContext context) => new PropertyListScreen(
        address:"${widget.address}",
        email:  "${widget.email}"
     )));

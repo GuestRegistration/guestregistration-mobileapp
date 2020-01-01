@@ -10,8 +10,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 //import 'package:flutter_localizations/flutter_localizations.dart';
 
 class Reservation extends StatefulWidget {
- final String propertyname,email,property_id;
-   Reservation({this.propertyname,this.email,this.property_id});
+ final String propertyname,email,propertyid;
+   Reservation({this.propertyname,this.email,this.propertyid});
   @override
   _ReservationState createState() => new _ReservationState();
 }
@@ -24,17 +24,17 @@ var formatted2 = formatter2.format(selectedDate);
 
 class _ReservationState extends State<Reservation> {
   String email;
-    String _error = "";
+    //String _error = "";
   //GlobalKey<FormState> _key = new GlobalKey();
   final formKey = GlobalKey<FormState>();
   bool _validate = false;
   final TextEditingController _textControllerin = new TextEditingController();
   final TextEditingController _textControllerout = new TextEditingController();
-  TextEditingController guest_name = new TextEditingController();
-  TextEditingController primary_guest = new TextEditingController();
-  TextEditingController addtional_guest = new TextEditingController();
-  TextEditingController booking_channel = new TextEditingController();
-  TextEditingController number_of_guest = new TextEditingController();
+  TextEditingController guestname = new TextEditingController();
+  TextEditingController primaryguest = new TextEditingController();
+  TextEditingController addtionalguest = new TextEditingController();
+  TextEditingController bookingchannel = new TextEditingController();
+  TextEditingController numberofguest = new TextEditingController();
 
 final scaffoldkey = GlobalKey<ScaffoldState>();
   bool _visible = false;
@@ -79,14 +79,14 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
         // selectedDate=formatted1 as DateTime;
       });
   }
- void update_user_reservation(resevation_id) async {
-       print("inside update_user_reservation"+resevation_id.toString());
+ void updateuserreservation(resevationid) async {
+       print("inside update_user_reservation"+resevationid.toString());
     var email = "${widget.email}";
      
  print(email);
 
-  var property_id = int.parse("${widget.property_id}");
-   print("propertyid"+property_id.toString());
+  var propertyid = int.parse("${widget.propertyid}");
+   print("propertyid"+propertyid.toString());
       Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -101,9 +101,9 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                 {
               'Reservation': FieldValue.arrayUnion([
                 {
-                  'Primary_guest': primary_guest.text,
-                  'property_id': property_id,
-                  'resevation_id':resevation_id,
+                  'Primary_guest': primaryguest.text,
+                  'property_id': propertyid,
+                  'resevation_id':resevationid,
                 }
               ]),
             }),
@@ -112,31 +112,31 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
   }
    void addReservation() {
        Random random = new Random();
-    var resevation_id = random.nextInt(100000000) + 10;
-    print("resevation_id" + resevation_id.toString());
+    var resevationid = random.nextInt(100000000) + 10;
+    print("resevation_id" + resevationid.toString());
       print("inside addReservation");
-        var property_id = int.parse("${widget.property_id}");
-   print("propertyid"+property_id.toString());
+        var propertyid1 = int.parse("${widget.propertyid}");
+   print("propertyid"+propertyid1.toString());
         try {
       Firestore.instance.runTransaction(
         (Transaction transaction) async {
           Firestore.instance.collection('Reservation').document().setData({
-            'Name': guest_name.text,
-             'Primary_guest': primary_guest.text,   
+            'Name': guestname.text,
+             'Primary_guest': primaryguest.text,   
             //'Additional_guest': addtional_guest.text,
-            'Booking_channel':booking_channel.text,
+            'Booking_channel':bookingchannel.text,
             'CheckIn_date': _textControllerin.text,
             'Checkout_date':_textControllerout.text,
-            'No_of_guest' :number_of_guest.text,
+            'No_of_guest' :numberofguest.text,
             'iD_verification':"ID_verification",
             'payment' : "payment",
-             'property_id': property_id,
-             'resevation_id':resevation_id,
+             'property_id': propertyid1,
+             'resevation_id':resevationid,
           }, //merge: true
            
            );
         },
-      ).whenComplete(() => update_user_reservation(resevation_id));
+      ).whenComplete(() => updateuserreservation(resevationid));
     } catch (e) {
       print(e.toString());
     }
@@ -227,7 +227,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                             color: Colors.white,
                             borderRadius: new BorderRadius.circular(12.0)),
                         child: new TextFormField(
-                         controller: guest_name,
+                         controller: guestname,
                           validator: (value) {
                               if (value.isEmpty) {
                                  return "Please enter Name of the Guest";
@@ -269,7 +269,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                               onSaved: (String val) {
                                 email = val;
                               },
-                          controller: primary_guest,
+                          controller: primaryguest,
                                  decoration: InputDecoration(
                                hintText: 'e.g. John@gmail.com',
                               contentPadding: EdgeInsets.all(20),
@@ -332,7 +332,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                             color: Colors.white,
                             borderRadius: new BorderRadius.circular(12.0)),
                         child: new TextFormField(
-                            controller: number_of_guest,
+                            controller: numberofguest,
                              keyboardType: TextInputType.number,
                             autofocus: false,
                             validator: (value) {
@@ -375,7 +375,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                             color: Colors.white,
                             borderRadius: new BorderRadius.circular(12.0)),
                         child: new TextFormField(
-                            controller: booking_channel,
+                            controller: bookingchannel,
                              validator: (value) {
                               if (value.isEmpty) {
                                  return "Please enter the Booking channel";
@@ -522,10 +522,10 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                               ));
                          Navigator.of(context).push(
                         new MaterialPageRoute(
-                            builder: (BuildContext context) => new Reservation_List_db_Screen(
+                            builder: (BuildContext context) => new ReservationLisdbScreen(
                                 email:"${widget.email}",
-                                property_name :  "${widget.propertyname}",
-                                property_id:"${widget.property_id}",
+                                propertyname :  "${widget.propertyname}",
+                                propertyid:"${widget.propertyid}",
                             )),
                       );
                                            

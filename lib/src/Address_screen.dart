@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:passwordless/src/completesetup.dart';
 import 'package:passwordless/src/load_animation_screen.dart';
 import 'package:passwordless/src/property_list_db.dart';
-import '../completesetup.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
@@ -83,6 +83,7 @@ class _FirstScreenState extends State<FirstScreen> {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load Property');
     }
+    return null;
   }
 
   @override
@@ -263,7 +264,7 @@ class _FirstScreenState extends State<FirstScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return Property_List_db_Screen(
+                                    return PropertyListdbScreen(
                                         email: email);
                                   },
                                 ),
