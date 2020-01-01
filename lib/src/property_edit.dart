@@ -1,6 +1,6 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'Address_screen.dart';
 import 'property_edit_text.dart';
 
 class PropertyEdit extends StatefulWidget {
@@ -26,27 +26,7 @@ class _PropertyEditState extends State<PropertyEdit> {
     });
   }
 
-  
-   Future<QuerySnapshot> getproperty1() {
-    print("inside delete_property function");
-         var propertyid = "${widget.property_id}";
-     var property_id = int.parse(propertyid);
 
-    print("propertyname" + propertyid);
-    var propertyid1 = int.parse(propertyid);
-    Future<QuerySnapshot> property = Firestore.instance
-        .collection("Properties")
-        .where("Propertyid", isEqualTo: property_id)
-        .getDocuments()
-        .then((string) {
-      print('Firestore response: , ${string.documents.length}');
-      string.documents.forEach(
-        (doc) =>  
-        print(doc.data),
-      );
-    });
-   
-  }
 
     Future<QuerySnapshot> getproperty() async {
      var propertyid = "${widget.property_id}";
@@ -63,9 +43,11 @@ return property;
   }
 
   var email;
+  
   void initState()  {
+    print(widget.email);
     super.initState();
-   //future= getproperty(); 
+   future= getproperty(); 
       _listFuture = getproperty();
 
   }
@@ -92,22 +74,7 @@ return property;
               Expanded(
                 child: FutureBuilder(
                   future: _listFuture,
-                  /*builder: (context, snapshot) {
-                    if (snapshot.hasError) print(snapshot.error);
-                    print("snapshot.data"+ snapshot.data.documents[0].data);
-                    return snapshot.hasData                    
-                        ? 
-                                ItemList(
-                                  //list:  snapshot.data.documents[0].data['Address'],
-                                  list: snapshot.data.documents[0].data,
-                                )
-                             
-                        : new Center(
-                            child: CircularProgressIndicator(),
-                          );
-                  },*/
-                    builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                 builder:(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
               return new Center(
                 child: Text(
@@ -121,7 +88,7 @@ return property;
             }
          return new ListView(
                 children: snapshot.data.documents.map<Widget>((document) {
-              
+            
               return new Container(
                // height: 200.0,
                   child: SingleChildScrollView(
@@ -276,7 +243,7 @@ return property;
                                         ),
                                       ),
                                     ),
-                                       Container(
+                                     /*  Container(
                                       height: 110.0,
                                       width: 550.0,
                                       child: Card(
@@ -318,7 +285,7 @@ return property;
                                           ],
                                         ),
                                       ),
-                                    ),
+                                    ),*/
                                          Container(
                                       //height: 110.0,
                                       width: 550.0,
@@ -347,15 +314,16 @@ return property;
                                             Column(children: <Widget>[
                                                 SizedBox(width: 120.0,),
                                                Container(
-                                                 child: Image.network("${document.data['Property_logo']}",width: 100.0,height: 100.0,),
-                                                  /*child: new Text(
-                                              "${document.data['Property_logo']}",
-                                                    style: TextStyle(
-                                                        fontSize: 15.0,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.black),
-                                                  ),*/
-                                                 
+                                               child:  Center(
+                                                                                                child: CircleAvatar(
+                                              radius: 100.0,
+                                              backgroundImage:
+                                                    NetworkImage("${document.data['Property_logo']}"),
+                                              backgroundColor: Colors.transparent,
+                                            ),
+                                               )
+                                                 //child: Image.network("${document.data['Property_logo']}",width: 100.0,height: 100.0,),
+
                                               ),
                                           ],
                                             ),
@@ -389,10 +357,12 @@ return property;
                                               propertyname: "${document['Property_Name']}",
                                               property_id:"${document['Propertyid']}",
                                               email: "${document['email']}",
-                                              Property_logo:"${document.data['Property_logo']}",
+                                            Property_logo:document.data['Property_logo'],
+                                           // Property_logo: img1,
                                               terms : "${document['terms']}",
                                               city: "${document.data['Address']['city']}",
                                               state: "${document.data['Address']['state']}",
+                                              useremail:"${widget.email}",
 
                                             );
                                           },
@@ -422,7 +392,7 @@ return property;
     );
   }
 }
- 
+/* 
 class ItemList extends StatefulWidget {
    List list;
 final  String email;
@@ -497,4 +467,18 @@ class _ItemListState extends State<ItemList> {
     );
   }
  
-} 
+} */
+ /*builder: (context, snapshot) {
+                    if (snapshot.hasError) print(snapshot.error);
+                    print("snapshot.data"+ snapshot.data.documents[0].data);
+                    return snapshot.hasData                    
+                        ? 
+                                ItemList(
+                                  //list:  snapshot.data.documents[0].data['Address'],
+                                  list: snapshot.data.documents[0].data,
+                                )
+                             
+                        : new Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  },*/

@@ -5,11 +5,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordless/src/property_list_db.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import './Reservation.dart';
 
 class Termsandcon extends StatefulWidget {
-   String email,primaryguest,propertiesname,city,dropdownValue,Propertyid,property_email,phone,staff,owner,address_line1,state;
- File img1;
+final   String email,primaryguest,propertiesname,city,dropdownValue,Propertyid,property_email,phone,staff,owner,address_line1,state;
+ final File img1;
    Termsandcon({this.img1,this.address_line1,this.state,this.email,this.primaryguest,this.propertiesname,this.city,this.dropdownValue,this.Propertyid,this.property_email,this.phone,this.owner,this.staff});
 
   @override
@@ -62,7 +61,6 @@ void initState() {
     print("randomnumber" + randomNumber.toString());
     var email = "${widget.email}";
     var url;
-    int i;
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -76,16 +74,11 @@ void initState() {
       dynamic host;
       int length;
       String value = "Owner";
-      var parsed, host_data;
 
       string.documents.forEach((doc) async => {
             length = doc.data['host'].length,
             print("lengthhhhhhhhhhhhhhhh" + length.toString()),
-            /*  if (length == 0) {
-              update_user(randomNumber),
-            } else {
-              print("user have host value"),
-            },*/
+            
             host = doc.data['host'],
             ownerpresent = ownercheck(host, value),
             print("ownerpresent" + ownerpresent.toString()),
@@ -182,7 +175,6 @@ void initState() {
   }
   void update_user(randomNumber) async {
     var email = "${widget.email}";
-    var firestoreid;
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -236,7 +228,7 @@ void navigate(){
             .document("${doc.documentID.toString()}")
             .updateData(
                 {
-              'Terms&con':terms_con.text
+              'Terms':terms_con.text
             }),
       );
     });

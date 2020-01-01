@@ -6,12 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:passwordless/src/reservation_list_db.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'profileimage.dart';
 
 //import 'package:flutter_localizations/flutter_localizations.dart';
 
 class Reservation extends StatefulWidget {
-  String propertyname,email,property_id;
+ final String propertyname,email,property_id;
    Reservation({this.propertyname,this.email,this.property_id});
   @override
   _ReservationState createState() => new _ReservationState();

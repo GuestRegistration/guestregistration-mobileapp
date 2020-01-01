@@ -38,15 +38,15 @@ class Property {
 }
 
 class Address {
-  String address_line1, city, state;
+  String addressLine1, city, state;
   Address({
-    this.address_line1,
+    this.addressLine1,
     this.city,
     this.state,
   });
   factory Address.fromJson(Map<String, dynamic> json) {
     return new Address(
-        address_line1: json['address_line1'],
+        addressLine1: json['address_line1'],
         city: json['city'],
         state: json['state']);
   }

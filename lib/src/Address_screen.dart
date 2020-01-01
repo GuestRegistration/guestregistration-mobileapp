@@ -1,17 +1,13 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:passwordless/src/load_animation_screen.dart';
 import 'package:passwordless/src/property_list_db.dart';
 import '../completesetup.dart';
-import './login_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
 
-import 'app.dart';
-import 'auth_screen.dart';
 
 /*API KEYS
 key1: AIzaSyDGBcJl3WG1pR5aFI6RBCHJU1U-F7rIYTs
@@ -22,8 +18,8 @@ key3: AIzaSyA0YNOEX-iYZQTRL6G3VBBCikiHZFzkHiE
  */
 
 class FirstScreen extends StatefulWidget {
-  String address;
-  String email;
+  final String address;
+ final String email;
   FirstScreen({this.address, this.email});
   @override
   _FirstScreenState createState() => _FirstScreenState();
@@ -44,14 +40,13 @@ class _FirstScreenState extends State<FirstScreen> {
     print("userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr999" + user.toString());
     return user != null ? user : null;
   }
-
+/*
   void _signOut() async {
     FirebaseAuth.instance.signOut();
-    var user1;
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     print(user);
     SystemNavigator.pop();
-  }
+  }*/
 
   Future<List> searchProperty(pattern) async {
     List<String> list = List();
