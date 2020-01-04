@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordless/src/property_list_db.dart';
@@ -175,6 +176,16 @@ void initState() {
   }
   void updateuser(randomNumber) async {
     var email = "${widget.email}";
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+        final FirebaseUser user1 = await auth.currentUser();
+        
+    final email1 = user1.email;
+     final uid = user1.uid;
+     print("useeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrr"+user1.toString());
+     print(user1);
+     print("email111111111111111"+email1);
+     print("uiddddddddddddddd"+uid);
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)

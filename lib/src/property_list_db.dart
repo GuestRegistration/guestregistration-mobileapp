@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:passwordless/src/Reservation.dart';
@@ -32,6 +33,13 @@ class _PropertyListdbScreenState extends State<PropertyListdbScreen> {
    Future<QuerySnapshot> getproperty() async {
      var email = "${widget.email}";
      print("emailllllll" + email);
+         final FirebaseAuth auth = FirebaseAuth.instance;
+
+    final FirebaseUser user1 = await auth.currentUser();
+    final email1 = user1.email;
+     final uid = user1.uid;
+    print(" user1.email"+email1);
+      print(" user1.uid"+uid);
      Future<QuerySnapshot> user =  Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)

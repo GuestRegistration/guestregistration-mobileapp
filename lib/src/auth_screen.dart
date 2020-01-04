@@ -218,6 +218,7 @@ class AuthScreenState extends State<AuthScreen> {
                               //  print("user"+user.toString());
                               if (snapshot.hasData) {
                                 var currentemail = snapshot.data;
+                                print(currentemail);
                                 existingemail = snapshot2.data;
                                 if (existingemail == null) {
                                   print("Not an existingemail first time login");
