@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,6 +51,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
      
  void addUser() async {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+        final FirebaseUser user1 = await auth.currentUser();
+        
+    final email1 = user1.email;
+     final uid = user1.uid;
+     print("uidddddddddddddd"+uid);
     var emailid = "${widget.existingemail}";
     print("email"+emailid);
     Firestore.instance
@@ -66,7 +74,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
           try {
       Firestore.instance.runTransaction(
         (Transaction transaction) async {
-          Firestore.instance.collection('users').document().setData({
+          Firestore.instance.collection('users').document(uid).setData({
             'name': name.text,
             'email': email1,   
             'phone': phone.text,
