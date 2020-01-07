@@ -86,7 +86,7 @@ class _FirstScreenState extends State<FirstScreen> {
     return null;
   }
 
-  @override
+  //@override
   final TextEditingController pattern = TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(

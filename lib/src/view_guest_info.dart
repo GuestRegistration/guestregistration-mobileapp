@@ -171,7 +171,7 @@ class _ItemListState extends State<ItemList> {
                                       ),
                                     ),
                                   ),
-                                      Container(
+                                     /* Container(
                                      height: 110.0,
                                     width: 550.0,
                                     child: Card(
@@ -212,7 +212,7 @@ class _ItemListState extends State<ItemList> {
                                         ],
                                       ),
                                     ),
-                                  ),
+                                  ),*/
                                       Container(
                                     height: 110.0,
                                     width: 550.0,
@@ -382,7 +382,7 @@ class _ItemListState extends State<ItemList> {
                                     ),
                                   ), 
                                    Container(
-                                    height: 112.0,
+                                   // height: 112.0,
                                     width: 550.0,
                                     child: Card(
                                       semanticContainer: true,
@@ -406,12 +406,27 @@ class _ItemListState extends State<ItemList> {
                                     
                                           Column(children: <Widget>[
                                               SizedBox(width: 120.0,),
-                                             Container(
-                                               
-                                                 
-                                               
+                                             Center(
+                                                                                            child: Container(
+                                      child: Image.network("${widget.list[i]['signature']}",width: 100.0,height: 100.0,),
+
+                                                   /*  child:  Container(
+                                                 child:  Center(
+                                                                                                  child: CircleAvatar(
+                                                //radius: 100.0,
+                                                backgroundImage:
+                                                      NetworkImage("${widget.list[i]['signature']}"),
+                                                backgroundColor: Colors.transparent,
                                             ),
+                                                 )
+                                                   
+                                                ),*/
+                                          
+                                                 
+                                            ),
+                                             ),
                                         ],
+                                        
                                           ),
                                         ],
                                       ),

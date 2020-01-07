@@ -31,7 +31,7 @@ class _ReservationState extends State<Reservation> {
   final TextEditingController _textControllerin = new TextEditingController();
   final TextEditingController _textControllerout = new TextEditingController();
   TextEditingController guestname = new TextEditingController();
-  TextEditingController primaryguest = new TextEditingController();
+ // TextEditingController primaryguest = new TextEditingController();
   TextEditingController addtionalguest = new TextEditingController();
   TextEditingController bookingchannel = new TextEditingController();
   TextEditingController numberofguest = new TextEditingController();
@@ -101,7 +101,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                 {
               'Reservation': FieldValue.arrayUnion([
                 {
-                  'Primary_guest': primaryguest.text,
+                  //'Primary_guest': primaryguest.text,
                   'property_id': propertyid,
                   'resevation_id':resevationid,
                 }
@@ -122,7 +122,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
         (Transaction transaction) async {
           Firestore.instance.collection('Reservation').document().setData({
             'Name': guestname.text,
-             'Primary_guest': primaryguest.text,   
+            // 'Primary_guest': primaryguest.text,   
             //'Additional_guest': addtional_guest.text,
             'Booking_channel':bookingchannel.text,
             'CheckIn_date': _textControllerin.text,
@@ -242,7 +242,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
            
                   ),
                       
-                     Align(
+                     /*Align(
                     alignment: Alignment(-.88, 0),
                     child: Text(
                       'Primary guests',
@@ -251,12 +251,12 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                           color: Color(0Xff5E577D),
                           fontWeight: FontWeight.bold),
                     ),
-                  ),
+                  ),*/
                   SizedBox(
                     height: 10.0,
                   ),
                   
-                  Align(
+                 /* Align(
                    alignment: Alignment(-.100, 0),
                     child: Container(
                         alignment: Alignment.center,
@@ -276,7 +276,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                             )),
                       ),
                     
-                  ), 
+                  ), */
                   /*  Align(
                     alignment: Alignment(-.88, 0),
                     child: Text(
