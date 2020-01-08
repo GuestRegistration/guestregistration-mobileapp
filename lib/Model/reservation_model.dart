@@ -1,8 +1,8 @@
-import 'dart:html';
+
 
 class Reservation {
   String reservation, primaryguest, addtionalguest;
-  DateInputElement checkIndate, checkoutdate;
+  String checkIndate, checkoutdate;
   bool idverification, payment;
   VerifiedPhone verifiedPhone;
   Reservation(

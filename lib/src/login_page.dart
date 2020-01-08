@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,11 +7,11 @@ import 'package:percent_indicator/percent_indicator.dart';
 //import 'package:firebase_database/firebase_database.dart';
 import 'Address_screen.dart';
 import 'package:passwordless/Model/umodel.dart';
-import 'dart:async' show Future, StreamSubscription;
+import 'dart:async' show Future;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginPage extends StatefulWidget {
-  String email,existingemail;
+  final String email,existingemail;
   LoginPage({this.email,this.existingemail});
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   TextEditingController propertiesname = new TextEditingController();
   TextEditingController role = new TextEditingController();
 
-  var host_Property, host_role;
+  var hostProperty, hostrole;
   List host1;
 
   void initState() {
@@ -45,14 +46,20 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
   }
   getData() async {
-    return await Firestore.instance.collection('users').snapshots();
+    return Firestore.instance.collection('users').snapshots();
   }
 
      
  void addUser() async {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+        final FirebaseUser user1 = await auth.currentUser();
+        
+    final email1 = user1.email;
+     final uid = user1.uid;
+     print("uidddddddddddddd"+uid);
     var emailid = "${widget.existingemail}";
     print("email"+emailid);
-    var firestoreid;
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: emailid)
@@ -67,7 +74,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
           try {
       Firestore.instance.runTransaction(
         (Transaction transaction) async {
-          Firestore.instance.collection('users').document().setData({
+          Firestore.instance.collection('users').document(uid).setData({
             'name': name.text,
             'email': email1,   
             'phone': phone.text,
@@ -136,7 +143,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Map<String, dynamic> handleSubmit() {
+  /*Map<String, dynamic> handleSubmit() {
     final FormState form = formKey.currentState;
     if (form.validate()) {
       // print("Hosts"+hosts[0].toString());
@@ -147,7 +154,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       //  userRef.push().set(user.toJson());
 
     }
-  }
+    //return null;
+  }*/
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +9,7 @@ import 'package:image/image.dart' as Img;
 import 'dart:io';
 
 class Profileimage extends StatefulWidget {
- String email,primaryguest;
+ final String email,primaryguest;
  
    Profileimage({this.email,this.primaryguest});
   @override

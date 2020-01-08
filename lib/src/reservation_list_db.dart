@@ -1,34 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:passwordless/src/Reservation.dart';
 import 'package:passwordless/src/view_guest_info.dart';
 //import 'package:advanced_share/advanced_share.dart';
 import 'package:share/share.dart';
 
-class Reservation_List_db_Screen extends StatefulWidget {
-  String email, property_name, property_id;
+class ReservationLisdbScreen extends StatefulWidget {
+  final String email, propertyname, propertyid;
 
   // List list;
-  Reservation_List_db_Screen(
-      {this.email, this.property_name, this.property_id});
+  ReservationLisdbScreen(
+      {this.email, this.propertyname, this.propertyid});
   @override
-  _Reservation_List_db_ScreenState createState() =>
-      new _Reservation_List_db_ScreenState();
+  _ReservationLisdbScreenState createState() =>
+      new _ReservationLisdbScreenState();
 }
 
-class _Reservation_List_db_ScreenState
-    extends State<Reservation_List_db_Screen> {
+class _ReservationLisdbScreenState
+    extends State<ReservationLisdbScreen> {
   int i = 0;
   List host = List();
   Future<QuerySnapshot> _listFuture;
   Future<QuerySnapshot> future;
 
   Future<QuerySnapshot> getreservation() async {
-    var property_id = int.parse("${widget.property_id}");
+    var propertyid1 = int.parse("${widget.propertyid}");
     Future<QuerySnapshot> reservation = Firestore.instance
         .collection("Reservation")
-        .where("property_id", isEqualTo: property_id)
+        .where("property_id", isEqualTo: propertyid1)
         .getDocuments();
 
     return reservation;
@@ -172,8 +170,8 @@ class _Reservation_List_db_ScreenState
                                      Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) {
-                                          return View_guest_info(
-                                            resevation_id:"${document['resevation_id']}",
+                                          return Viewguestinfo(
+                                            resevationid:"${document['resevation_id']}",
                                                      
                                              
                                           );
@@ -244,7 +242,7 @@ class _Reservation_List_db_ScreenState
 class ItemList extends StatefulWidget {
   //EventSummary(this.event);
   final DocumentSnapshot list;
-  String email;
+ final String email;
   ItemList({this.list, this.email});
 
   @override
@@ -309,8 +307,8 @@ class _ItemListState extends State<ItemList> {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) {
-                                          return View_guest_info(
-                                            resevation_id:"${widget.list['propertiesname']}",
+                                          return Viewguestinfo(
+                                            resevationid:"${widget.list['propertiesname']}",
                                                      
                                              
                                           );

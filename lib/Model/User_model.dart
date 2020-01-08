@@ -18,9 +18,9 @@ class User {
   });
 
     factory User.fromJson(Map<String, dynamic> json) {
-    var list = json['host'] as List;
+    //var list = json['host'] as List;
       //print(list.runtimeType);
-      List<Host> hostList = list.map((i) => Host.fromJson(i)).toList();
+      //List<Host> hostList = list.map((i) => Host.fromJson(i)).toList();
 
     return new User(
         nameformlogin: json["nameformlogin"],

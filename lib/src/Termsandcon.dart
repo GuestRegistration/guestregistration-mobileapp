@@ -1,16 +1,16 @@
 import 'dart:math';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordless/src/property_list_db.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import './Reservation.dart';
 
 class Termsandcon extends StatefulWidget {
-   String email,primaryguest,propertiesname,city,dropdownValue,Propertyid,property_email,phone,staff,owner,address_line1,state;
- File img1;
-   Termsandcon({this.img1,this.address_line1,this.state,this.email,this.primaryguest,this.propertiesname,this.city,this.dropdownValue,this.Propertyid,this.property_email,this.phone,this.owner,this.staff});
+final   String email,primaryguest,propertiesname,city,dropdownValue,propertyid,propertyemail,phone,staff,owner,addressline1,state;
+ final File img1;
+   Termsandcon({this.img1,this.addressline1,this.state,this.email,this.primaryguest,this.propertiesname,this.city,this.dropdownValue,this.propertyid,this.propertyemail,this.phone,this.owner,this.staff});
 
   @override
   _TermsandconState createState() => new _TermsandconState();
@@ -25,13 +25,13 @@ class _TermsandconState extends State<Termsandcon> {
 void initState() {
     print("${widget.email}".toString());
      print("${widget.propertiesname}".toString());
-       print("${widget.property_email}".toString());
+       print("${widget.propertyemail}".toString());
             print("${widget.img1}".toString());
               print("${widget.phone}".toString());
     print("${widget.staff}".toString());
       print("${widget.dropdownValue}".toString());
         print("${widget.owner}".toString());
-    print("${widget.address_line1}".toString());
+    print("${widget.addressline1}".toString());
       print("${widget.city}".toString());
     print("${widget.state}".toString());
 
@@ -43,14 +43,14 @@ void initState() {
   }
 
   bool ownercheck(List host, String value) {
-    bool owner_flag = false;
+    bool ownerflag = false;
     print(host);
     for (int i = 0; i < host.length; i++) {
-      owner_flag = host[i]['role'].contains(value);
-      print("owner_flag" + owner_flag.toString());
-      if (owner_flag == true) {
+      ownerflag = host[i]['role'].contains(value);
+      print("ownerflag" + ownerflag.toString());
+      if (ownerflag == true) {
         print("owner present");
-        return owner_flag;
+        return ownerflag;
       }
     }
     return false;
@@ -62,7 +62,6 @@ void initState() {
     print("randomnumber" + randomNumber.toString());
     var email = "${widget.email}";
     var url;
-    int i;
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -76,16 +75,11 @@ void initState() {
       dynamic host;
       int length;
       String value = "Owner";
-      var parsed, host_data;
 
       string.documents.forEach((doc) async => {
             length = doc.data['host'].length,
             print("lengthhhhhhhhhhhhhhhh" + length.toString()),
-            /*  if (length == 0) {
-              update_user(randomNumber),
-            } else {
-              print("user have host value"),
-            },*/
+            
             host = doc.data['host'],
             ownerpresent = ownercheck(host, value),
             print("ownerpresent" + ownerpresent.toString()),
@@ -108,9 +102,9 @@ void initState() {
                       'Propertyid': randomNumber,
                       'Property_Name': "${widget.propertiesname}",
                       'Property_logo': url,
-                      'email': "${widget.property_email}",
+                      'email': "${widget.propertyemail}",
                       'phone': "${widget.phone}",
-                       'terms': terms_con.text,
+                       'terms': termscon.text,
                       'Team': {
                         'staff': "${widget.staff}",
                         "owner": "${widget.email}"
@@ -119,13 +113,13 @@ void initState() {
                       'Reservation': {'listofreservation': "${widget.email}"},
                       'Reservation': {'guestform': "${widget.email}"},
                       'Address': {
-                        'addressline1':"${widget.address_line1}",
+                        'addressline1':"${widget.addressline1}",
                         'city': "${widget.city}",
                         'state': "${widget.state}"
                       }
                     });
                   },
-                ).whenComplete(() => update_user(randomNumber))
+                ).whenComplete(() => updateuser(randomNumber))
               }
           
               else if (ownerpresent == true)
@@ -157,9 +151,9 @@ void initState() {
                       'Propertyid': randomNumber,
                       'Property_Name': "${widget.propertiesname}",
                       'Property_logo': url,
-                      'email': "${widget.property_email}",
+                      'email': "${widget.propertyemail}",
                       'phone': "${widget.phone}",
-                      'terms': terms_con.text,
+                      'terms': termscon.text,
                       'Team' : {
                         'staff': "${widget.staff}",
                         "owner": "${widget.email}"
@@ -168,21 +162,30 @@ void initState() {
                       'Reservation': {'listofreservation': "${widget.email}"},
                       'Reservation': {'guestform': "${widget.email}"},
                       'Address': {
-                        'addressline1': "${widget.address_line1}",
+                        'addressline1': "${widget.addressline1}",
                         'city': "${widget.city}",
                         'state': "${widget.state}",
                       }
                     });
                   },
-                ).whenComplete(() => update_user(randomNumber))
+                ).whenComplete(() => updateuser(randomNumber))
               },
               
           });
     });
   }
-  void update_user(randomNumber) async {
+  void updateuser(randomNumber) async {
     var email = "${widget.email}";
-    var firestoreid;
+      final FirebaseAuth auth = FirebaseAuth.instance;
+
+        final FirebaseUser user1 = await auth.currentUser();
+        
+    final email1 = user1.email;
+     final uid = user1.uid;
+     print("useeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrr"+user1.toString());
+     print(user1);
+     print("email111111111111111"+email1);
+     print("uiddddddddddddddd"+uid);
     Firestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
@@ -215,12 +218,12 @@ void initState() {
   }
 void navigate(){
   Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (contex)=> Property_List_db_Screen(
+                        builder: (contex)=> PropertyListdbScreen(
                           email: "${widget.email}",
                         )
                       ));
 }
-  void update_property_terms() async {
+  void updatepropertyterms() async {
        print("inside update_user_reservation");
     var email = "${widget.email}";
  print(email);
@@ -236,12 +239,12 @@ void navigate(){
             .document("${doc.documentID.toString()}")
             .updateData(
                 {
-              'Terms&con':terms_con.text
+              'Terms':termscon.text
             }),
       );
     });
   }
-       TextEditingController terms_con = new TextEditingController();
+       TextEditingController termscon = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -307,7 +310,7 @@ void navigate(){
                   height: 40,
                 ),
                 new TextField(
-                  controller: terms_con,
+                  controller: termscon,
                   decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
