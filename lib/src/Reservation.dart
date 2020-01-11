@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -79,8 +78,10 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
         // selectedDate=formatted1 as DateTime;
       });
   }
- void updateuserreservation(resevationid) async {
-       print("inside update_user_reservation"+resevationid.toString());
+ //void updateuserreservation(resevationid) async {
+    void updateuserreservation() async {
+
+ //      print("inside update_user_reservation"+resevationid.toString());
     var email = "${widget.email}";
      
  print(email);
@@ -103,7 +104,7 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
                 {
                   //'Primary_guest': primaryguest.text,
                   'property_id': propertyid,
-                  'resevation_id':resevationid,
+              //    'resevation_id':resevationid,
                 }
               ]),
             }),
@@ -111,9 +112,9 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
     });
   }
    void addReservation() {
-       Random random = new Random();
-    var resevationid = random.nextInt(100000000) + 10;
-    print("resevation_id" + resevationid.toString());
+  //     Random random = new Random();
+   // var resevationid = random.nextInt(100000000) + 10;
+ //   print("resevation_id" + resevationid.toString());
       print("inside addReservation");
         var propertyid1 = int.parse("${widget.propertyid}");
    print("propertyid"+propertyid1.toString());
@@ -131,12 +132,14 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
             'iD_verification':"ID_verification",
             'payment' : "payment",
              'property_id': propertyid1,
-             'resevation_id':resevationid,
+           //  'resevation_id':resevationid,
           }, //merge: true
            
            );
         },
-      ).whenComplete(() => updateuserreservation(resevationid));
+    //  ).whenComplete(() => updateuserreservation(resevationid));
+          ).whenComplete(() => updateuserreservation());
+
     } catch (e) {
       print(e.toString());
     }

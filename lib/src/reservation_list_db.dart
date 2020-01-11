@@ -171,8 +171,10 @@ class _ReservationLisdbScreenState
                                       MaterialPageRoute(
                                         builder: (context) {
                                           return Viewguestinfo(
-                                            resevationid:"${document['resevation_id']}",
-                                                     
+                                            //resevationid:"${document['resevation_id']}",
+
+
+                                              resevationid: "${document.documentID}",
                                              
                                           );
                                         },
