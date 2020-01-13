@@ -4,6 +4,8 @@ import 'package:passwordless/src/view_guest_info.dart';
 //import 'package:advanced_share/advanced_share.dart';
 import 'package:share/share.dart';
 
+import 'basic_view_guest_info.dart';
+
 class ReservationLisdbScreen extends StatefulWidget {
   final String email, propertyname, propertyid;
 
@@ -55,6 +57,51 @@ class _ReservationLisdbScreenState
     super.dispose();
   }
 
+ void checkcompletereservation(docid) async {
+
+    print("docid"+docid); 
+    print("inside checkcompletereservation");
+    Firestore.instance
+        .collection("ReservationSubmission")
+        .where("Basic_Reservation_ID", isEqualTo: docid)
+        .getDocuments()
+        .then((string) {
+      print('Firestore response111: , ${string.documents.length}');
+      if (string.documents.length == 0) {
+        print("inside if");
+           Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return Basicviewguestinfo (
+                                              //resevationid: "${document.documentID}",
+                                              resevationid: docid,
+                                             propertyname:"${widget.propertyname}",
+                                          );
+                                        },
+                                      ),
+                                    );
+        } 
+        else {
+          print("inside else");
+          Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return Viewguestinfo(
+                                            //  resevationid: "${document.documentID}",
+                                            resevationid: docid,
+                                                                       );
+                                        },
+                                      ),
+                                    );
+        }
+            /*if(string.documents.length){
+
+            }
+            else{
+
+            } */  
+    });
+  }
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -69,7 +116,14 @@ class _ReservationLisdbScreenState
         child: new FutureBuilder(
           future: _listFuture,
           builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              ( context, snapshot) {
+               // print("docid"+snapshot.data.documents.documentID);
+                 /*   return FutureBuilder(
+                future: Firestore.instance
+                    .collection("ReservationSubmission")
+                    .where("Basic_Reservation_ID", isEqualTo: snapshot.data.documents.documentID)
+                    .getDocuments(),
+                builder: (BuildContext context, snapshot1) {*/
             if (!snapshot.hasData) {
               return new Center(
                 child: Text(
@@ -81,6 +135,14 @@ class _ReservationLisdbScreenState
                 ),
               );
             }
+
+         /*   print("snapshot1"+snapshot1.data);
+               print("snapshot1length"+snapshot1.data.length);   
+               print("snapshot1hasdata"+snapshot1.hasData.toString());*/
+
+            /*if(snapshot1.hasData){
+              pr
+            }*/
          return new ListView(
                 children: snapshot.data.documents.map<Widget>((document) {
                   Text("hai",style: TextStyle(
@@ -167,7 +229,15 @@ class _ReservationLisdbScreenState
                                   ),
                                   color: Color(0xffEDE7FF),
                                   onPressed: () {
-                                     Navigator.of(context).push(
+                                    checkcompletereservation(document.documentID);
+                                 /*   if ("${document.documentID}" == null) {
+                                      print("inside if");
+                                  
+                                    } else {
+                                       print("inside else");
+                                      
+                                    }*/
+                                    /* Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) {
                                           return Viewguestinfo(
@@ -179,7 +249,7 @@ class _ReservationLisdbScreenState
                                           );
                                         },
                                       ),
-                                    );
+                                    );*/
                                     // });
                                   },
                                 ),
@@ -235,7 +305,8 @@ class _ReservationLisdbScreenState
               );
             }).toList());
           },
-        ),
+       // );} 
+         ),
       ),
     );
   }

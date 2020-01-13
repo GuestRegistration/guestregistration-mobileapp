@@ -1,24 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
-
 class Viewguestpersonalinfo extends StatefulWidget {
-  final String primary_guest_uid;
+  final String primaryguestuid;
 
   // List list;
-  Viewguestpersonalinfo({this.primary_guest_uid});
+  Viewguestpersonalinfo({this.primaryguestuid});
   @override
   _ViewguestpersonalinfoState createState() => new _ViewguestpersonalinfoState();
 }
 
 class _ViewguestpersonalinfoState extends State<Viewguestpersonalinfo> {
-  var primary_guest_uid;
+  var primaryguestuid, image;
 
   void initState() {
     super.initState();
-    print("${widget.primary_guest_uid}");
-    primary_guest_uid = "${widget.primary_guest_uid}";
+    print("${widget.primaryguestuid}");
+    primaryguestuid = "${widget.primaryguestuid}";
     
     // getguestinfo();
   }
@@ -34,7 +32,7 @@ class _ViewguestpersonalinfoState extends State<Viewguestpersonalinfo> {
                    mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[              
               FutureBuilder(
-                future:Firestore.instance.collection("users").document(primary_guest_uid).get(),
+                future:Firestore.instance.collection("users").document(primaryguestuid).get(),
               
                         builder: (BuildContext context, snapshot) {
      
@@ -44,7 +42,7 @@ class _ViewguestpersonalinfoState extends State<Viewguestpersonalinfo> {
             print("snapshothas" + snapshot.hasData.toString());
          //print("snapshotdata_CheckIn_date" +snapshot.data['email'].toString());
 
-            if (!snapshot.hasData) {
+         /*   if (!snapshot.hasData) {
               return new Center(
                 child: Text(
                   "Loading....",
@@ -54,7 +52,19 @@ class _ViewguestpersonalinfoState extends State<Viewguestpersonalinfo> {
                       fontSize: 15.0),
                 ),
               );
+            }*/
+         //   print("lengthhhhh of snapshot.data.length "+snapshot.data.length);
+           //  print("lengthhhhh of snapshot.data.documents.length "+snapshot.data.documents.length);
+            //if (snapshot.data.length == 0) {
+          /*    print("view guest personal info");
+            if(snapshot.hasData == false){
+            print("inside if");
+                    image = "";
             }
+            else{
+                print("inside else");
+               image = "${snapshot.data['idverification']}";
+            }*/
             return new Container(
               //  children: snapshot.data.map<Widget>((document) {
               child: new Container(
@@ -228,16 +238,33 @@ class _ViewguestpersonalinfoState extends State<Viewguestpersonalinfo> {
                                                   child: Text(
                                                       ' 📄 Identity document')),
                                             ),
-                                            Column(
+                                            
+                                                Column(
                                               children: <Widget>[
-                                                //SizedBox(                                 width: 120.0,                                              ),
+                                                //SizedBox(width: 120.0,
+                                                                                           
                                                 Center(
                                                   child: Container(
-                                                    child: Image.network(
+
+                                                      child: 
+                                                      image != ""
+                                                ? Image.network(
+                                                 // image,
                                                       "${snapshot.data['idverification']}",
-                                                      width: 200.0,
-                                                      height: 200.0,
-                                                    ),
+                                                      width: 100.0,
+                                                      height: 100.0,
+                                                    )
+                            :  new Text("Guest user not yet checked in",style:  TextStyle(color: Colors.red, fontSize: 15.0),)
+                     // ),
+                      
+                                                      /*
+                                                      Image.network(image,
+                                                      //"${snapshot1.data.documents[0]['signature']}",
+                                                      width: 100.0,
+                                                      height: 100.0,
+                                                    ),*/
+
+
  
                                                   ),
                                                 ),

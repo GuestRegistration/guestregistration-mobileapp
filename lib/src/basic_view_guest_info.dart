@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 //import '../../../../Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.13.0+1/lib/cloud_firestore.dart';
 import 'view_guest_presonal_info.dart';
 
-class Viewguestinfo extends StatefulWidget {
-  final String resevationid;
+class Basicviewguestinfo extends StatefulWidget {
+  final String resevationid,propertyname;
 
   // List list;
-  Viewguestinfo({this.resevationid});
+  Basicviewguestinfo({this.resevationid,this.propertyname});
   @override
-  _ViewguestinfoState createState() => new _ViewguestinfoState();
+  _BasicviewguestinfoState createState() => new _BasicviewguestinfoState();
 }
 
-class _ViewguestinfoState extends State<Viewguestinfo> {
+class _BasicviewguestinfoState extends State<Basicviewguestinfo> {
   var resevationid;
   var image;
   void initState() {
     super.initState();
-    print("${widget.resevationid}");
+    print("${widget.propertyname}");   
     resevationid = "${widget.resevationid}";
   }
 
@@ -43,7 +43,6 @@ class _ViewguestinfoState extends State<Viewguestinfo> {
                 builder: (BuildContext context, snapshot1) {
                   print("haiiiiiiiiiiiiiii");
                   print("length" + snapshot1.data.documents.length.toString());
-                  print("puid"+ "${snapshot1.data.documents[0]['primary_guest_uid']}");
                   if (!snapshot.hasData) {
                     return new Center(
                       child: Text(
@@ -87,10 +86,8 @@ class _ViewguestinfoState extends State<Viewguestinfo> {
                               height: 10.0,
                             ),
                             Container(
-                              child: new Text(
-                                "${snapshot.data['Booking_channel']} ${snapshot.data['CheckIn_date']} "
-                                'to'
-                                " ${snapshot.data['Checkout_date']}",
+                              child: new Text('Basic Reservation'
+                              ,
                                 style: TextStyle(
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold,
@@ -100,7 +97,49 @@ class _ViewguestinfoState extends State<Viewguestinfo> {
                             //  new Flexible(
                             //  child: Column(
                             //   children: <Widget>[
-
+  Container(
+                              height: 110.0,
+                              width: 550.0,
+                              child: Card(
+                                semanticContainer: true,
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                elevation: 10,
+                                margin: EdgeInsets.all(15),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 550.0,
+                                      height: 50.0,
+                                      child: GestureDetector(
+                                          child: Card(
+                                              semanticContainer: true,
+                                              child:
+                                                  Text('✒️ Property')),
+                                          
+                                                      ),
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: 120.0,
+                                        ),
+                                        Container(
+                                          child: new Text(
+                                            "${widget.propertyname}",
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                             Container(
                               height: 110.0,
                               width: 550.0,
@@ -121,7 +160,7 @@ class _ViewguestinfoState extends State<Viewguestinfo> {
                                               semanticContainer: true,
                                               child:
                                                   Text('✒️ Name on Booking')),
-                                      
+                                          
                                                       ),
                                     ),
                                     Column(
@@ -129,25 +168,14 @@ class _ViewguestinfoState extends State<Viewguestinfo> {
                                         SizedBox(
                                           width: 120.0,
                                         ),
-                                        GestureDetector(
-                                                                                  child: Container(
-                                            child: new Text(
-                                              "${snapshot.data['Name']}",
-                                              style: TextStyle(
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
+                                        Container(
+                                          child: new Text(
+                                            "${snapshot.data['Name']}",
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
                                           ),
-                                    onTap: () => Navigator.of(context)
-                                              .push(new MaterialPageRoute(
-                                                  builder: (BuildContext
-                                                          context) =>
-                                                      new Viewguestpersonalinfo(
-                                                        primaryguestuid:
-                                                        //"${widget.resevationid}",
-                                                            "${snapshot1.data.documents[0]['primary_guest_uid']}",
-                                                      )))
                                         ),
                                       ],
                                     ),
@@ -315,7 +343,7 @@ class _ViewguestinfoState extends State<Viewguestinfo> {
                                 ),
                               ),
                             ),
-                            Container(
+                            /*Container(
                               // height: 112.0,
                               width: 550.0,
                               child: Card(
@@ -369,7 +397,7 @@ class _ViewguestinfoState extends State<Viewguestinfo> {
                                   ],
                                 ),
                               ),
-                            ),
+                            ),*/
                             //  ],
                             //  ),
                             //  ),
@@ -426,10 +454,7 @@ class _ItemListState extends State<ItemList> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            child: new Text(
-                              "${widget.list[i]['Booking_channel']} ${widget.list[i]['CheckIn_date']} "
-                              'to'
-                              " ${widget.list[i]['Checkout_date']}",
+                            child: new Text('Basic Reservation',
                               style: TextStyle(
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
@@ -462,26 +487,7 @@ class _ItemListState extends State<ItemList> {
                                                     semanticContainer: true,
                                                     child: Text(
                                                         '✒️ Name on Booking')),
-                                              
-                                                            ),
-                                          ),
-                                          Column(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                width: 120.0,
-                                              ),
-                                              GestureDetector(
-                                                                                              child: Container(
-                                                  child: new Text(
-                                                    "${widget.list[i]['Name']}",
-                                                    style: TextStyle(
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                                  onTap: () => Navigator.of(
+                                                onTap: () => Navigator.of(
                                                         context)
                                                     .push(new MaterialPageRoute(
                                                         builder: (BuildContext
@@ -489,8 +495,22 @@ class _ItemListState extends State<ItemList> {
                                                             new Viewguestpersonalinfo(
                                                               primaryguestuid:
                                                                   "${widget.resevationid}",
-                                                            ))
-                                                            )
+                                                            )))),
+                                          ),
+                                          Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                width: 120.0,
+                                              ),
+                                              Container(
+                                                child: new Text(
+                                                  "${widget.list[i]['Name']}",
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
                                               ),
                                             ],
                                           ),
