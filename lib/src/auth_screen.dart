@@ -69,7 +69,7 @@ class AuthScreenState extends State<AuthScreen> {
     print("email" + email); 
     Firestore.instance
         .collection("users")
-        .where("email", isEqualTo: email)
+        .where("email", isEqualTo: email.toLowerCase())
         .getDocuments()
         .then((string) {
       print('Firestore response111: , ${string.documents.length}');
@@ -83,7 +83,7 @@ class AuthScreenState extends State<AuthScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => LoginPage(
-                  existingemail: email.toString(),
+                  existingemail: email.toString().toLowerCase(),
                 )));
         } 
         else {
@@ -98,7 +98,7 @@ class AuthScreenState extends State<AuthScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => PropertyListdbScreen(
-                  email: email.toString(),
+                  email: email.toString().toLowerCase(),
                 )));    
         }
     });

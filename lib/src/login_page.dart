@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         (Transaction transaction) async {
           Firestore.instance.collection('users').document(uid).setData({
             'name': name.text,
-            'email': email1,   
+            'email': email1.toLowerCase(),   
             'phone': phone.text,
             //'host': [{'propertiesname': propertiesname.text, 'role': role.text}],
             'host': [],

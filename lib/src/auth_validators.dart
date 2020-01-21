@@ -5,7 +5,7 @@ class AuthValidators {
   final validateEmail =
       StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
     if (RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
-      sink.add(email);
+      sink.add(email.toLowerCase());
     } else {
       sink.addError(Constants.errorEmail);
     }
